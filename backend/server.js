@@ -1,15 +1,21 @@
 const express = require('express');
+const cors = require('cors');
 const bodyParser = require('body-parser');
-const sequelize = require('./config/database');
+const sequelize = require('./config/database'); // Der Pfad sollte korrekt sein
+const authRoutes = require('./routes/auth');
 
 const app = express();
+
+app.use(cors({
+    origin: 'http://localhost:4700',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
 app.use(bodyParser.json());
 
-const routes = require('./routes/index');
+app.use('/api/auth', authRoutes);
 
-app.use('/api', routes);
-
-// Middleware für Validierung
 app.use((err, req, res, next) => {
     if (err) {
         res.status(500).json({ error: err.message });

@@ -1,0 +1,16 @@
+<app-navbar></app-navbar>
+<div class="register-container">
+  <h2>Registrieren</h2>
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <label for="name">Name:</label>
+    <input id="name" formControlName="name" type="text">
+
+    <label for="email">Email:</label>
+    <input id="email" formControlName="email" type="email">
+
+    <label for="password">Passwort:</label>
+    <input id="password" formControlName="password" type="password">
+
+    <button type="submit">Registrieren</button>
+  </form>
+</div>
