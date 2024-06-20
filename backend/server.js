@@ -1,8 +1,10 @@
+require('dotenv').config();
+
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const sequelize = require('./config/database'); // Der Pfad sollte korrekt sein
-const authRoutes = require('./routes/auth');
+const sequelize = require('./config/database');
+const authRoutes = require('./routes/auth'); // Importiere die auth-Routen
 
 const app = express();
 
@@ -13,8 +15,9 @@ app.use(cors({
 }));
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use('/api/auth', authRoutes);
+app.use('/api/auth', authRoutes); // Binde die auth-Routen ein
 
 app.use((err, req, res, next) => {
     if (err) {

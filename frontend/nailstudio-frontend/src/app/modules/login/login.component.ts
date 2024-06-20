@@ -20,6 +20,9 @@ export class LoginComponent {
   constructor(private authService: AuthService, private router: Router) {}
 
   onLogin(): void {
+    console.log('Login attempt - Email:', this.email); // Debugging
+    console.log('Login attempt - Password:', this.password); // Debugging
+
     this.authService.login(this.email, this.password).subscribe({
       next: (response: AuthResponse) => {
         console.log('Login erfolgreich', response);
