@@ -7,6 +7,7 @@ const sequelize = new Sequelize('naildata', 'nailmember', 'webangular123!', {
         options: {
             encrypt: true,
             enableArithAbort: true,
+            connectTimeout: 30000 // Timeout in Millisekunden
         }
     },
     pool: {
