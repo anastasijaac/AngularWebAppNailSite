@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@400;500&display=swap');
+
+body, html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-family: 'Roboto', sans-serif; /* Setzen Sie die Schriftart global */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f8f8f8; /* Leichte Hintergrundfarbe */
+}
+
+.login-container {
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+  background-color: #fff; /* Hintergrundfarbe des Formulars */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Leichte Schatten für Tiefe */
+  border-radius: 10px; /* Runde Ecken */
+  animation: fadeIn 1s ease-in-out; /* Fade-in-Animation */
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+h2 {
+  text-align: center;
+  color: #420039; /* Farbton passend zum Design */
+  font-family: 'Playfair Display', serif;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-top: 10px;
+  color: #333;
+}
+
+input {
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+input:focus {
+  border-color: #e91e63; /* Farbe beim Fokussieren */
+  outline: none;
+}
+
+button[type="submit"] {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: rgb(234, 88, 157); /* Hintergrundfarbe des Buttons */
+  color: #fff; /* Schriftfarbe des Buttons */
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Leichte Schatten für Tiefe */
+  font-family: 'Roboto', sans-serif;
+}
+
+button[type="submit"]:hover {
+  background-color: #c2185b; /* Hover-Hintergrundfarbe */
+  transform: scale(1.05); /* Leichte Vergrößerung beim Hover */
+}
+
+.back-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: rgba(234, 88, 157, 0.68); /* Blau für den Zurück-Button */
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Leichte Schatten für Tiefe */
+  font-family: 'Roboto', sans-serif;
+}
+
+.back-button:hover {
+  background-color: #ea3e90; /* Dunkleres Blau beim Hover */
+  transform: scale(1.05); /* Leichte Vergrößerung beim Hover */
+}
+
+p {
+  text-align: center;
+  margin-top: 20px;
+}
+
+a {
+  color: #e91e63;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+a:hover {
+  color: #c2185b;
+}

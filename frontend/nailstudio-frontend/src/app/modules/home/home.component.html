@@ -1,5 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Your Page Title</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
+</head>
+
 <app-navbar></app-navbar>
-<div class="home-content">
-  <h1>Willkommen im Nagelstudio</h1>
-  <p>Hier können Sie Ihre Nageltermine buchen und vieles mehr.</p>
+<div class="container">
+  <div class="text">
+    <div class="slogan">
+      <h1>Eleganz bis in die Fingerspitzen.</h1>
+      <p>
+        Willkommen bei Swan Lake Nails – Ihrem Ort für unvergleichliche Eleganz und Schönheit. Wir bieten Ihnen einzigartige Nageldesigns, die Ihre Persönlichkeit zum Strahlen bringen. Tauchen Sie ein in eine Welt, wo jede Maniküre ein Meisterwerk und jede Behandlung eine Auszeit vom Alltag ist.
+      </p>
+      <button class="register-button" (click)="navigateToLogin()">Melde dich jetzt an und buche deinen Termin</button>
+    </div>
+  </div>
+  <div class="image">
+    <img src="assets/n1.jpg" alt="Nagelbild" style="width: 50%; height: auto">
+  </div>
 </div>

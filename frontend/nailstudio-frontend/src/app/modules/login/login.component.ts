@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';  // Importiere RouterModule
+import { AuthService } from '../../services/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AuthResponse } from '../../models/auth-response';
 
@@ -11,7 +12,7 @@ import { AuthResponse } from '../../models/auth-response';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
   standalone: true,
-  imports: [FormsModule, CommonModule]
+  imports: [FormsModule, CommonModule, RouterModule]  // Stelle sicher, dass RouterModule importiert wird
 })
 export class LoginComponent {
   email: string = '';
@@ -32,5 +33,9 @@ export class LoginComponent {
         console.error('Login fehlgeschlagen', error);
       }
     });
+  }
+
+  navigateToHome(): void {
+    this.router.navigate(['/']);
   }
 }

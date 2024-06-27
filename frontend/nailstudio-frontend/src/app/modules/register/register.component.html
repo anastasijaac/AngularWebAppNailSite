@@ -1,16 +1,38 @@
-<div>
-  <h2>Registrieren</h2>
-  <form (ngSubmit)="onRegister()">
-    <label for="name">Name:</label>
-    <input type="text" id="name" [(ngModel)]="name" name="name" required>
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registrieren - Swan Lake Nails</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@400;500&display=swap"
+    rel="stylesheet"
+  />
+</head>
+<body>
+<div class="register-container">
+  <div class="register-form">
+    <h2>Sign up</h2>
+    <form (ngSubmit)="onRegister()">
+      <label for="name">Name:</label>
+      <input type="text" id="name" [(ngModel)]="name" name="name" required (input)="clearErrorMessage()">
 
-    <label for="email">Email:</label>
-    <input type="email" id="email" [(ngModel)]="email" name="email" required>
+      <label for="email">Email:</label>
+      <input type="email" id="email" [(ngModel)]="email" name="email" required (input)="clearErrorMessage()">
 
-    <label for="password">Passwort:</label>
-    <input type="password" id="password" [(ngModel)]="password" name="password" required minlength="6">
+      <label for="password">Passwort:</label>
+      <input type="password" id="password" [(ngModel)]="password" name="password" required minlength="6" (input)="clearErrorMessage()">
 
-    <button type="submit">Registrieren</button>
-  </form>
-  <p>Schon einen Account? <a routerLink="/login">Hier anmelden</a></p>
+      <label for="confirmPassword">Passwort bestätigen:</label>
+      <input type="password" id="confirmPassword" [(ngModel)]="confirmPassword" name="confirmPassword" required (input)="clearErrorMessage()">
+
+      <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+
+      <button type="submit">Sign up</button>
+    </form>
+    <p>Already have an account? <a routerLink="/login">Login</a></p>
+    <button class="back-button" (click)="navigateToHome()">Back Home</button>
+  </div>
 </div>
+</body>
+</html>

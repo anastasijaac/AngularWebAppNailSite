@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
+
+body, html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-family: 'Playfair Display', serif; /* Setzen Sie die Schriftart global */
+}
+
+.container {
+  display: flex;
+  justify-content: center; /* Zentrieren Sie den Inhalt horizontal */
+  align-items: center; /* Zentrieren Sie den Inhalt vertikal */
+  height: 80vh; /* 80% der Bildschirmhöhe */
+  padding: 20px; /* Abstand zum Rand */
+}
+
+.text {
+  margin: 50px;
+  flex: 1; /* Der Textbereich dehnt sich aus, um den verfügbaren Raum zu füllen */
+}
+
+.slogan h1 {
+  color: #d29db0; /* Elegante Farbwahl */
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.slogan p {
+  color: #333;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.register-button {
+  font-size: 1.1rem;
+  padding: 12px 24px;
+  background-color: #f3bfd9; /* Hintergrundfarbe */
+  color: #262626; /* Schriftfarbe */
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Leichte Schatten für Tiefe */
+}
+
+.register-button:hover {
+  background-color: #ffbad5;
+  transform: scale(1.05); /* Leichte Vergrößerung beim Hover */
+}
+
+.image {
+  flex: 1; /* Der Bildbereich dehnt sich aus, um den verfügbaren Raum zu füllen */
+  text-align: center; /* Zentrieren Sie das Bild horizontal */
+  margin-left: 20px; /* Abstand von der Navbar */
+}
+
+.image img {
+  max-width: 80%; /* Stellen Sie sicher, dass das Bild responsiv ist */
+  max-height: 500px; /* Maximale Höhe des Bildes */
+  height: auto;
+  border-radius: 10px; /* Runde Ecken für ein elegantes Aussehen */
+}

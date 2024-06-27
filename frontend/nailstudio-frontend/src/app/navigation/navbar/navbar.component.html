@@ -1,5 +1,13 @@
-<nav>
-  <a routerLink="/">Home</a>
-  <a routerLink="/login">Anmelden</a>
-  <a routerLink="/register">Registrieren</a>
-</nav>
+<mat-toolbar color="primary" class="navbar-toolbar">
+  <div class="navbar-brand">
+    <a routerLink="/">
+      <img src="assets/LOGO-SWAN-LAKE.jpg" alt="Logo" style="height: 50px;">
+    </a>
+  </div>
+  <span class="spacer"></span>
+  <div class="navbar-nav">
+    <a mat-button routerLink="/" routerLinkActive="active">Home</a>
+    <a mat-button routerLink="/login" routerLinkActive="active">Anmelden</a>
+    <a mat-button routerLink="/register" routerLinkActive="active">Registrieren</a>
+  </div>
+</mat-toolbar>
