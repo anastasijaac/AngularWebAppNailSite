@@ -27,6 +27,8 @@ app.use((err, req, res, next) => {
     }
 });
 
+app.use('/api/auth', authRoutes); // Binde die auth-Routen ein
+
 sequelize.sync().then(() => {
     app.listen(3000, () => {
         console.log('Server running at http://localhost:3000');

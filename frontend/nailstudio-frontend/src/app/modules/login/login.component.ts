@@ -27,13 +27,20 @@ export class LoginComponent {
     this.authService.login(this.email, this.password).subscribe({
       next: (response: AuthResponse) => {
         console.log('Login erfolgreich', response);
-        this.router.navigate(['/appointment']);
+
+        // Hier je nach Benutzerrolle zur richtigen Seite navigieren
+        if (response.kunde) {
+          this.router.navigate(['/appointment']);
+        } else {
+          this.router.navigate(['/employee-view']);
+        }
       },
       error: (error: HttpErrorResponse) => {
         console.error('Login fehlgeschlagen', error);
       }
     });
   }
+
 
   navigateToHome(): void {
     this.router.navigate(['/']);
