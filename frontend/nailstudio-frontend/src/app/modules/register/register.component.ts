@@ -18,10 +18,16 @@ export class RegisterComponent {
   password: string = '';
   confirmPassword: string = '';
   errorMessage: string = '';
+  successMessage: string = '';
 
   constructor(private authService: AuthService, private router: Router) {}
 
   onRegister(): void {
+    if (!this.name || !this.email || !this.password || !this.confirmPassword) {
+      this.errorMessage = 'Bitte füllen Sie alle Felder aus.';
+      return;
+    }
+
     if (this.password !== this.confirmPassword) {
       this.errorMessage = 'Passwörter stimmen nicht überein.';
       return;
@@ -40,8 +46,11 @@ export class RegisterComponent {
     this.authService.register(this.name, this.email, this.password).subscribe({
       next: (response) => {
         console.log('Registrierung erfolgreich', response);
-        this.showSuccessPopup();
-        this.router.navigate(['/appointment']);
+        this.successMessage = "You're now a Swan member!";
+        setTimeout(() => {
+          this.successMessage = '';
+          this.router.navigate(['/login']);
+        }, 2000);
       },
       error: (error: HttpErrorResponse) => {
         console.error('Registrierung fehlgeschlagen', error);
@@ -54,30 +63,12 @@ export class RegisterComponent {
     this.router.navigate(['/']);
   }
 
-  private showSuccessPopup(): void {
-    const popup = document.createElement('div');
-    popup.className = 'success-popup';
-    popup.innerHTML = `
-      <div class="popup-content">
-        <img src="assets/swan-icon.png" alt="Swan Icon" />
-        <p>You're now a Swan member!</p>
-      </div>
-    `;
-    document.body.appendChild(popup);
-
-    setTimeout(() => {
-      popup.remove();
-    }, 3000); // Popup wird nach 3 Sekunden entfernt
+  navigateToLogin(): void {
+    this.router.navigate(['/login']);
   }
 
   clearErrorMessage(): void {
-    if (
-      this.password === this.confirmPassword &&
-      this.password.length >= 6 &&
-      this.emailIsValid(this.email)
-    ) {
-      this.errorMessage = '';
-    }
+    this.errorMessage = '';
   }
 
   emailIsValid(email: string): boolean {

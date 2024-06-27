@@ -27,10 +27,11 @@
       <input type="password" id="confirmPassword" [(ngModel)]="confirmPassword" name="confirmPassword" required (input)="clearErrorMessage()">
 
       <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+      <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
 
       <button type="submit">Sign up</button>
     </form>
-    <p>Already have an account? <a routerLink="/login">Login</a></p>
+    <p>Already have an account? <a (click)="navigateToLogin()">Login</a></p>
     <button class="back-button" (click)="navigateToHome()">Back Home</button>
   </div>
 </div>
