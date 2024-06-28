@@ -4,7 +4,6 @@ const Mitarbeiter = require('./models/Mitarbeiter');
 const Dienstleistungen = require('./models/Dienstleistungen');
 const Feedback = require('./models/Feedback');
 const Fotografien = require('./models/Fotografien');
-const Tagesagenda = require('./models/Tagesagenda');
 const Termine = require('./models/Termine');
 
 sequelize.sync({ force: true })

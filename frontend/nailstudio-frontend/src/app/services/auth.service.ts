@@ -3,6 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthResponse } from '../models/auth-response';
 
+
+// Für Authentifizierungsoperationen wie Login und Registrierung. Dies sieht so aus, als hättest du es bereits implementiert.
+
 @Injectable({
   providedIn: 'root'
 })

@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from './modules/home/home.component';
 import { LoginComponent } from './modules/login/login.component';
 import { RegisterComponent } from './modules/register/register.component';
-import { AppointmentComponent } from './modules/appointment/appointment.component';
+import { AppointmentComponent } from './modules/client/appointment/appointment.component';
 import { EmployeeViewComponent } from './modules/employee-view/employee-view.component';
 
 export const appRoutes: Routes = [

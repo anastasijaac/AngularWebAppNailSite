@@ -27,22 +27,21 @@ router.post('/login', [
                 console.log('Benutzer nicht gefunden');
                 return res.status(400).json({ msg: 'Ungültige Anmeldedaten' });
             }
+            // Setze Rolle als Mitarbeiter
+            const token = jwt.sign({ id: user.id, role: 'mitarbeiter' }, process.env.JWT_SECRET || 'defaultsecret', { expiresIn: 3600 });
+            return res.json({ token, user: {...user.toJSON(), role: 'mitarbeiter' } });
         }
 
-        const isMatch = await bcrypt.compare(password, user.Passwort);
-        if (!isMatch) {
-            console.log('Passwort stimmt nicht überein');
-            return res.status(400).json({ msg: 'Ungültige Anmeldedaten' });
-        }
-
-        const token = jwt.sign({ id: user.id, role: user instanceof Kunde ? 'kunde' : 'mitarbeiter' }, process.env.JWT_SECRET || 'defaultsecret', { expiresIn: 3600 });
-        res.json({ token, user });
+        // Setze Rolle als Kunde
+        const token = jwt.sign({ id: user.id, role: 'kunde' }, process.env.JWT_SECRET || 'defaultsecret', { expiresIn: 3600 });
+        return res.json({ token, user: {...user.toJSON(), role: 'kunde' } });
 
     } catch (err) {
         console.error('Serverfehler:', err.message);
         res.status(500).send('Serverfehler');
     }
 });
+
 
 
 module.exports = router;

@@ -68,18 +68,6 @@ exports.validateFotografien = [
     }
 ];
 
-// Validierung für Tagesagenda
-exports.validateTagesagenda = [
-    body('Datum').notEmpty().withMessage('Datum ist erforderlich').isISO8601().toDate().withMessage('Datum muss im ISO8601-Format sein'),
-    body('MaxTermine').isInt({ min: 1 }).withMessage('MaxTermine muss eine positive Ganzzahl sein'),
-    (req, res, next) => {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
-        }
-        next();
-    }
-];
 
 // Validierung für Termine
 exports.validateTermine = [
@@ -88,7 +76,6 @@ exports.validateTermine = [
     body('KundenID').isInt().withMessage('KundenID muss eine Ganzzahl sein'),
     body('MitarbeiterID').isInt().withMessage('MitarbeiterID muss eine Ganzzahl sein'),
     body('DienstleistungsID').isInt().withMessage('DienstleistungsID muss eine Ganzzahl sein'),
-    body('TagesagendaID').isInt().withMessage('TagesagendaID muss eine Ganzzahl sein'),
     (req, res, next) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {

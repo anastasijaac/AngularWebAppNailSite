@@ -21,17 +21,14 @@ export class LoginComponent {
   constructor(private authService: AuthService, private router: Router) {}
 
   onLogin(): void {
-    console.log('Login attempt - Email:', this.email); // Debugging
-    console.log('Login attempt - Password:', this.password); // Debugging
-
     this.authService.login(this.email, this.password).subscribe({
       next: (response: AuthResponse) => {
         console.log('Login erfolgreich', response);
 
-        // Hier je nach Benutzerrolle zur richtigen Seite navigieren
-        if (response.kunde) {
+        // Entscheide basierend auf der Rolle des Benutzers
+        if (response.user.role === 'kunde') {
           this.router.navigate(['/appointment']);
-        } else {
+        } else if (response.user.role === 'mitarbeiter') {
           this.router.navigate(['/employee-view']);
         }
       },
@@ -40,6 +37,7 @@ export class LoginComponent {
       }
     });
   }
+
 
 
   navigateToHome(): void {

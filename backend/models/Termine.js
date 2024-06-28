@@ -36,13 +36,6 @@ const Termine = sequelize.define('Termine', {
             key: 'DienstleistungsID'
         }
     },
-    TagesagendaID: {
-        type: DataTypes.INTEGER,
-        references: {
-            model: 'Tagesagenda',
-            key: 'TagesagendaID'
-        }
-    }
 }, {
     tableName: 'Termine',
     timestamps: false

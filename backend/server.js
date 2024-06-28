@@ -5,6 +5,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const sequelize = require('./config/database');
 const authRoutes = require('./routes/auth'); // Importiere die auth-Routen
+const dienstleistungenRoutes = require('./routes/dienstleistungen'); // Importiere die dienstleistungen-Routen
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/api/auth', authRoutes); // Binde die auth-Routen ein
+app.use('/api/dienstleistungen', dienstleistungenRoutes); // Binde die dienstleistungen-Routen ein
 
 app.use((err, req, res, next) => {
     if (err) {
@@ -26,8 +28,6 @@ app.use((err, req, res, next) => {
         next();
     }
 });
-
-app.use('/api/auth', authRoutes); // Binde die auth-Routen ein
 
 sequelize.sync().then(() => {
     app.listen(3000, () => {

@@ -1,5 +1,10 @@
 {
   "dependencies": {
+    "@fullcalendar/angular": "^6.1.14",
+    "@fullcalendar/core": "^6.1.14",
+    "@fullcalendar/daygrid": "^6.1.14",
+    "@fullcalendar/interaction": "^6.1.14",
+    "@fullcalendar/timegrid": "^6.1.14",
     "express": "^4.19.2"
   }
 }
