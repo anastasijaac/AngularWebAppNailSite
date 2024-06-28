@@ -1,0 +1,15 @@
+.calendar-container {
+  max-width: 600px; /* Ändern Sie dies entsprechend Ihrer Anforderungen */
+  margin: 0 auto; /* Zentrieren Sie den Kalender horizontal */
+  overflow: hidden; /* Verhindern Sie das Scrollen */
+}
+
+.full-calendar {
+  max-height: 500px; /* Ändern Sie dies entsprechend Ihrer Anforderungen */
+  overflow: hidden; /* Verhindern Sie das Scrollen */
+}
+
+select {
+  display: block;
+  margin: 20px 0;
+}

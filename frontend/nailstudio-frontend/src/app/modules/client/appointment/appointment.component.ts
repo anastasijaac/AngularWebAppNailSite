@@ -23,7 +23,7 @@ export class AppointmentComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.loadDienstleistungen();
-    this.initializeCalendar();  // Stellen Sie sicher, dass diese Methode hier aufgerufen wird
+    this.initializeCalendar();
   }
 
   ngAfterViewInit() {
@@ -48,6 +48,7 @@ export class AppointmentComponent implements OnInit, AfterViewInit {
       this.calendarOptions = {
         plugins: [dayGridPlugin, interactionPlugin],
         initialView: 'dayGridMonth',
+        height: 'auto', // Setzen Sie die Höhe des Kalenders automatisch
         dateClick: this.handleDateClick.bind(this),
       };
     }

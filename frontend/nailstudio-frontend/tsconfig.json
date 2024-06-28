@@ -35,5 +35,13 @@
   "include": [
     "src/**/*.d.ts",
     "src/**/*.ts"
+  ],
+  "exclude": [
+    "src/test.ts",
+    "src/**/*.spec.ts",
+    "server.ts",
+    "src/app/app.config.server.ts",
+    "src/app/app.config.ts",
+    "src/main.server.ts"
   ]
 }

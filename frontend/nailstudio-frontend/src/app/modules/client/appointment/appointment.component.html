@@ -4,6 +4,6 @@
     <select [(ngModel)]="selectedService">
       <option *ngFor="let service of services" [value]="service.DienstleistungsID">{{ service.Bezeichnung }}</option>
     </select>
-    <full-calendar *ngIf="calendarOptions" [options]="calendarOptions"></full-calendar>
+    <full-calendar *ngIf="calendarOptions" [options]="calendarOptions" class="full-calendar"></full-calendar>
   </div>
 </div>
