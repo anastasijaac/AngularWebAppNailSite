@@ -1,19 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DienstleistungenService } from '../../../services/dienstleistungen.service';
+import { NavbarKundeComponent } from '../../../navigation/navbar-kunde/navbar-kunde.component';
 
 @Component({
   selector: 'app-appointment',
   standalone: true,
-  imports: [FormsModule, CommonModule, FullCalendarModule],
+  imports: [FormsModule, CommonModule, FullCalendarModule, NavbarKundeComponent],
   templateUrl: './appointment.component.html',
   styleUrls: ['./appointment.component.css']
 })
-export class AppointmentComponent implements OnInit {
+export class AppointmentComponent implements OnInit, AfterViewInit {
   calendarOptions: any;
   services: any[] = [];
   selectedService?: number;
@@ -22,7 +23,13 @@ export class AppointmentComponent implements OnInit {
 
   ngOnInit() {
     this.loadDienstleistungen();
-    this.initializeCalendar();
+    this.initializeCalendar();  // Stellen Sie sicher, dass diese Methode hier aufgerufen wird
+  }
+
+  ngAfterViewInit() {
+    if (typeof window !== 'undefined') {
+      this.initializeCalendar();
+    }
   }
 
   loadDienstleistungen() {
@@ -37,11 +44,13 @@ export class AppointmentComponent implements OnInit {
   }
 
   initializeCalendar() {
-    this.calendarOptions = {
-      plugins: [dayGridPlugin, interactionPlugin],
-      initialView: 'dayGridMonth',
-      dateClick: this.handleDateClick.bind(this),
-    };
+    if (typeof window !== 'undefined') {
+      this.calendarOptions = {
+        plugins: [dayGridPlugin, interactionPlugin],
+        initialView: 'dayGridMonth',
+        dateClick: this.handleDateClick.bind(this),
+      };
+    }
   }
 
   handleDateClick(arg: any) {

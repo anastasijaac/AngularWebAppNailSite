@@ -6,9 +6,9 @@ import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-navbar-kunde',
+  standalone: true,
   templateUrl: './navbar-kunde.component.html',
   styleUrls: ['./navbar-kunde.component.css'],
-  standalone: true,
   imports: [
     CommonModule,
     RouterModule,

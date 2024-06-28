@@ -4,6 +4,9 @@ import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { appRoutes } from './app/app.routes';
 import { provideHttpClient } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import '@fullcalendar/core';
+import '@fullcalendar/daygrid';
+import '@fullcalendar/interaction';
 
 bootstrapApplication(AppComponent, {
   providers: [

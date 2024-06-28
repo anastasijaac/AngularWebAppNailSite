@@ -1,9 +1,9 @@
-<!-- appointment.component.html -->
 <div>
+  <app-navbar-kunde></app-navbar-kunde>
   <div class="calendar-container">
     <select [(ngModel)]="selectedService">
       <option *ngFor="let service of services" [value]="service.DienstleistungsID">{{ service.Bezeichnung }}</option>
     </select>
-    <full-calendar [options]="calendarOptions"></full-calendar>
+    <full-calendar *ngIf="calendarOptions" [options]="calendarOptions"></full-calendar>
   </div>
 </div>
