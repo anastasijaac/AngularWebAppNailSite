@@ -1,5 +1,6 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
+const Dienstleistungen = require('./Dienstleistungen');
 
 const Fotografien = sequelize.define('Fotografien', {
     FotoID: {
@@ -10,7 +11,7 @@ const Fotografien = sequelize.define('Fotografien', {
     DienstleistungsID: {
         type: DataTypes.INTEGER,
         references: {
-            model: 'Dienstleistungen',
+            model: Dienstleistungen,
             key: 'DienstleistungsID'
         }
     },

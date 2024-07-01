@@ -1,5 +1,6 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
+const Termine = require('./Termine');
 
 const Feedback = sequelize.define('Feedback', {
     FeedbackID: {
@@ -8,7 +9,7 @@ const Feedback = sequelize.define('Feedback', {
         primaryKey: true
     },
     Text: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(500),
         allowNull: false
     },
     Bewertung: {
@@ -18,7 +19,7 @@ const Feedback = sequelize.define('Feedback', {
     TerminID: {
         type: DataTypes.INTEGER,
         references: {
-            model: 'Termine',
+            model: Termine,
             key: 'TerminID'
         }
     }

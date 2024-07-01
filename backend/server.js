@@ -7,6 +7,21 @@ const sequelize = require('./config/database');
 const authRoutes = require('./routes/auth');
 const dienstleistungenRoutes = require('./routes/dienstleistungen');
 const termineRoutes = require('./routes/termine');
+const feedbackRoutes = require('./routes/feedback');
+const fotografienRoutes = require('./routes/fotografien');
+const mitarbeiterRoutes = require('./routes/mitarbeiter');
+const terminzeitenRoutes = require('./routes/terminzeiten');
+const verfuegbareTermineRoutes = require('./routes/verfuegbareTermine');
+
+// Sicherstellen, dass alle Modelle importiert werden, um die Assoziationen zu initialisieren
+const Terminzeiten = require('./models/Terminzeiten');
+const Mitarbeiter = require('./models/Mitarbeiter');
+const VerfuegbareTermine = require('./models/VerfuegbareTermine');
+const Kunde = require('./models/Kunde');
+const Dienstleistungen = require('./models/Dienstleistungen');
+const Fotografien = require('./models/Fotografien');
+const Feedback = require('./models/Feedback');
+const Termine = require('./models/Termine');
 
 const app = express();
 
@@ -19,9 +34,14 @@ app.use(cors({
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use('/api/auth', authRoutes); // Binde die auth-Routen ein
-app.use('/api/dienstleistungen', dienstleistungenRoutes); // Binde die dienstleistungen-Routen ein
+app.use('/api/auth', authRoutes);
+app.use('/api/dienstleistungen', dienstleistungenRoutes);
 app.use('/api/termine', termineRoutes);
+app.use('/api/feedback', feedbackRoutes);
+app.use('/api/fotografien', fotografienRoutes);
+app.use('/api/mitarbeiter', mitarbeiterRoutes);
+app.use('/api/terminzeiten', terminzeitenRoutes);
+app.use('/api/verfuegbareTermine', verfuegbareTermineRoutes);
 
 app.use((err, req, res, next) => {
     if (err) {

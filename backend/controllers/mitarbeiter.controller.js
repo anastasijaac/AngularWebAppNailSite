@@ -39,3 +39,24 @@ module.exports.employeeLogin = [
         }
     }
 ];
+
+// GET alle Mitarbeiter
+exports.getAllMitarbeiter = async (req, res) => {
+    try {
+        const mitarbeiter = await Mitarbeiter.findAll();
+        res.json(mitarbeiter);
+    } catch (err) {
+        res.status(500).send(err.message);
+    }
+};
+
+// POST neuen Mitarbeiter erstellen
+exports.createMitarbeiter = async (req, res) => {
+    try {
+        const { Name, Rolle, Email, Passwort } = req.body;
+        const neuerMitarbeiter = await Mitarbeiter.create({ Name, Rolle, Email, Passwort });
+        res.status(201).json(neuerMitarbeiter);
+    } catch (err) {
+        res.status(500).send(err.message);
+    }
+};

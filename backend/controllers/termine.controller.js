@@ -1,7 +1,11 @@
+// controllers/termine.controller.js
 const { body, validationResult } = require('express-validator');
 const Termine = require('../models/Termine');
 const Dienstleistungen = require('../models/Dienstleistungen');
-const { Op, Sequelize } = require('sequelize');
+const Mitarbeiter = require('../models/Mitarbeiter');
+const VerfuegbareTermine = require('../models/VerfuegbareTermine');
+const Terminzeiten = require('../models/Terminzeiten');
+const { Op } = require('sequelize');
 
 // GET alle Termine
 exports.getAllTermine = async (req, res) => {
@@ -16,7 +20,7 @@ exports.getAllTermine = async (req, res) => {
 // POST neuen Termin erstellen
 exports.createTermin = [
     body('Datum').isISO8601().toDate(),
-    body('Uhrzeit').matches(/^\d{2}:\d{2}$/).withMessage('Uhrzeit must be in HH:MM format'),
+    body('TerminzeitID').isInt({ min: 1 }),
     body('KundenID').isInt({ min: 1 }),
     body('MitarbeiterID').isInt({ min: 1 }),
     body('DienstleistungsID').isInt({ min: 1 }),
@@ -26,35 +30,27 @@ exports.createTermin = [
             return res.status(400).json({ errors: errors.array() });
         }
 
-        const { Datum, Uhrzeit, KundenID, MitarbeiterID, DienstleistungsID } = req.body;
+        const { Datum, TerminzeitID, KundenID, MitarbeiterID, DienstleistungsID } = req.body;
         const dienstleistung = await Dienstleistungen.findByPk(DienstleistungsID);
         if (!dienstleistung) {
             return res.status(404).json({ msg: "Dienstleistung nicht gefunden" });
         }
 
-        const dauer = dienstleistung.Dauer * 60000; // Dauer in Millisekunden
-        const startZeit = new Date(`${Datum.toISOString().split('T')[0]}T${Uhrzeit}:00.000Z`);
-        const endZeit = new Date(startZeit.getTime() + dauer);
-
         const conflicts = await Termine.findAll({
             where: {
                 MitarbeiterID,
                 Datum,
-                Uhrzeit: {
-                    [Op.or]: [
-                        { [Op.gte]: startZeit.toISOString().split('T')[1].substring(0, 8), [Op.lt]: endZeit.toISOString().split('T')[1].substring(0, 8) }
-                    ]
-                }
+                TerminzeitID
             }
         });
 
-        if (conflicts.length > 0) {
-            return res.status(409).json({ message: "Terminüberschneidung vorhanden" });
+        if (conflicts.length >= 3) {
+            return res.status(409).json({ message: "Mitarbeiter hat bereits 3 Termine an diesem Tag" });
         }
 
         const neuerTermin = await Termine.create({
-            Datum: Datum.toISOString().split('T')[0],
-            Uhrzeit,
+            Datum,
+            TerminzeitID,
             KundenID,
             MitarbeiterID,
             DienstleistungsID
@@ -63,23 +59,58 @@ exports.createTermin = [
     }
 ];
 
+// Verfügbare Mitarbeiter abrufen
+exports.getAvailableEmployees = async (req, res) => {
+    const { dienstleistungsID, datum } = req.query;
+
+    try {
+        const terminzeiten = await Terminzeiten.findAll();
+        let availableEmployees = [];
+
+        for (const terminzeit of terminzeiten) {
+            const availableEmployeesAtTime = await VerfuegbareTermine.findAll({
+                where: {
+                    Datum: datum,
+                    TerminzeitID: terminzeit.TerminzeitID,
+                    Verfuegbar: true
+                },
+                include: [Mitarbeiter]
+            });
+
+            for (const record of availableEmployeesAtTime) {
+                const termineCount = await Termine.count({
+                    where: {
+                        MitarbeiterID: record.MitarbeiterID,
+                        Datum: datum,
+                        TerminzeitID: terminzeit.TerminzeitID
+                    }
+                });
+
+                if (termineCount < 3) {
+                    availableEmployees.push({
+                        MitarbeiterID: record.MitarbeiterID,
+                        Name: record.Mitarbeiter.Name,
+                        Terminzeit: terminzeit.Uhrzeit
+                    });
+                }
+            }
+        }
+
+        res.json(availableEmployees);
+    } catch (err) {
+        res.status(500).send(err.message);
+    }
+};
 
 // Überprüfung der Terminverfügbarkeit
 exports.checkTerminAvailability = async (req, res) => {
-    const { Datum, Uhrzeit, Dauer, MitarbeiterID } = req.body;
-    const startZeit = new Date(`${Datum.toISOString().split('T')[0]}T${Uhrzeit}:00.000Z`);
-    const endZeit = new Date(startZeit.getTime() + Dauer * 60000);
+    const { Datum, TerminzeitID, MitarbeiterID } = req.body;
 
     const termineAmTag = await Termine.findAll({
         where: {
             MitarbeiterID,
-            Datum: Datum.toISOString().split('T')[0],
-            Uhrzeit: {
-                [Op.or]: [
-                    { [Op.lt]: endZeit.toISOString().split('T')[1].substring(0, 8) },
-                    { [Op.gt]: startZeit.toISOString().split('T')[1].substring(0, 8) }
-                ]
-            }
+            Datum,
+            TerminzeitID
         }
     });
 
@@ -90,38 +121,3 @@ exports.checkTerminAvailability = async (req, res) => {
     }
 };
 
-// Verfügbare Zeiten abrufen
-exports.getAvailableTimes = async (req, res) => {
-    const { serviceId, date } = req.query;
-    const employees = await Mitarbeiter.findAll({
-        include: [{
-            model: Dienstleistungen,
-            where: { DienstleistungsID: serviceId }
-        }]
-    });
-
-    const times = ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00'];
-    let availableTimes = [];
-
-    for (const employee of employees) {
-        const appointments = await Termine.findAll({
-            where: {
-                MitarbeiterID: employee.MitarbeiterID,
-                Datum: date
-            }
-        });
-
-        const bookedTimes = appointments.map(app => app.Uhrzeit);
-        const freeTimes = times.filter(time => !bookedTimes.includes(time));
-
-        if (freeTimes.length > 0) {
-            availableTimes.push({
-                MitarbeiterID: employee.MitarbeiterID,
-                Name: employee.Name,
-                AvailableTimes: freeTimes
-            });
-        }
-    }
-
-    res.json(availableTimes);
-};

@@ -1,13 +1,10 @@
-// models/Termine.js
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
-const Kunde = require('./Kunde');
-const Mitarbeiter = require('./Mitarbeiter');
-const Dienstleistungen = require('./Dienstleistungen');
 const Terminzeiten = require('./Terminzeiten');
+const Mitarbeiter = require('./Mitarbeiter');
 
-const Termine = sequelize.define('Termine', {
-    TerminID: {
+const VerfuegbareTermine = sequelize.define('VerfuegbareTermine', {
+    VerfuegbareTerminID: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true
@@ -23,13 +20,6 @@ const Termine = sequelize.define('Termine', {
             key: 'TerminzeitID'
         }
     },
-    KundenID: {
-        type: DataTypes.INTEGER,
-        references: {
-            model: Kunde,
-            key: 'KundenID'
-        }
-    },
     MitarbeiterID: {
         type: DataTypes.INTEGER,
         references: {
@@ -37,16 +27,17 @@ const Termine = sequelize.define('Termine', {
             key: 'MitarbeiterID'
         }
     },
-    DienstleistungsID: {
-        type: DataTypes.INTEGER,
-        references: {
-            model: Dienstleistungen,
-            key: 'DienstleistungsID'
-        }
+    Verfuegbar: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false
     }
 }, {
-    tableName: 'Termine',
+    tableName: 'VerfuegbareTermine',
     timestamps: false
 });
 
-module.exports = Termine;
+// Assoziationen definieren
+VerfuegbareTermine.belongsTo(Mitarbeiter, { foreignKey: 'MitarbeiterID' });
+VerfuegbareTermine.belongsTo(Terminzeiten, { foreignKey: 'TerminzeitID' });
+
+module.exports = VerfuegbareTermine;
