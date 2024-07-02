@@ -1,0 +1,16 @@
+<app-navbar-mitarbeiter></app-navbar-mitarbeiter>
+
+<div class="employee-view-container">
+  <h2>Meine Termine für heute</h2>
+  <ul>
+    <li *ngFor="let termin of termine">
+      <div class="employee-view">
+        <p>Datum: {{ termin.Datum | date }}</p>
+        <p>Uhrzeit: {{ termin.Terminzeiten?.Uhrzeit }}</p>
+        <p>Kunde: {{ termin.KundenID }}</p>
+        <p>Dienstleistung: {{ termin.Dienstleistungen?.Bezeichnung }}</p>
+        <p>Mitarbeiter: {{ termin.Mitarbeiter?.Name }}</p>
+      </div>
+    </li>
+  </ul>
+</div>

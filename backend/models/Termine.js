@@ -49,4 +49,10 @@ const Termine = sequelize.define('Termine', {
     timestamps: false
 });
 
+// Assoziationen definieren
+Termine.belongsTo(Kunde, { foreignKey: 'KundenID' });
+Termine.belongsTo(Mitarbeiter, { foreignKey: 'MitarbeiterID' });
+Termine.belongsTo(Dienstleistungen, { foreignKey: 'DienstleistungsID' });
+Termine.belongsTo(Terminzeiten, { foreignKey: 'TerminzeitID' });
+
 module.exports = Termine;

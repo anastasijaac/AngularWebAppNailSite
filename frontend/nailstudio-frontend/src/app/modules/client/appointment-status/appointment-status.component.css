@@ -1,0 +1,46 @@
+.appointment-status-container {
+  padding: 20px;
+  background-color: #f6e3eb;
+  border-radius: 10px;
+  max-width: 600px;
+  margin: 40px auto; /* Margin oben hinzugefügt und zentriert */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  color: #ad1457;
+  text-align: center;
+  font-family: 'Arial', sans-serif;
+  margin-bottom: 20px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  margin: 10px 0;
+}
+
+.appointment {
+  padding: 15px;
+  background-color: #f8bbd0;
+  border-radius: 10px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.appointment:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.appointment p {
+  margin: 5px 0;
+  font-family: 'Arial', sans-serif;
+  color: #4a4a4a;
+}
+
+.appointment p strong {
+  color: #ad1457;
+}

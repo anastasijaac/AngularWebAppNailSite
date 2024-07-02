@@ -1,0 +1,31 @@
+.employee-view-container {
+  padding: 20px;
+  background-color: #fdfdfd;
+  border-radius: 10px;
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+h2 {
+  color: #ad1457;
+  text-align: center;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  margin: 10px 0;
+  padding: 10px;
+  background-color: #f8bbd0;
+  border-radius: 5px;
+}
+
+.employee-view {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #ffffff;
+}

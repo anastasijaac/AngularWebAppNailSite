@@ -1,15 +1,101 @@
+.appointment-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fdfdfd; /* soft pink background */
+  padding: 20px;
+  border-radius: 10px;
+}
+
+h2 {
+  color: #ad1457; /* elegant rose color */
+}
+
+select, button {
+  margin: 10px 0;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #f8bbd0; /* rose color */
+  color: #fff;
+  cursor: pointer;
+}
+
+button.selected {
+  background-color: #e91e63; /* darker rose to indicate selection */
+}
+
+button:hover {
+  background-color: #f06292; /* darker rose */
+}
+
+.time-slots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.employee-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.employee-list > div {
+  background-color: #f8bbd0;
+  margin: 5px 0;
+  padding: 10px;
+  border-radius: 5px;
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+}
+
+.employee-list > div.selected {
+  background-color: #e91e63; /* darker rose to indicate selection */
+}
+
 .calendar-container {
-  max-width: 600px; /* Ändern Sie dies entsprechend Ihrer Anforderungen */
-  margin: 0 auto; /* Zentrieren Sie den Kalender horizontal */
-  overflow: hidden; /* Verhindern Sie das Scrollen */
+  max-width: 600px; /* Adjust as needed */
+  margin: 20px auto; /* Center horizontally */
+  overflow: hidden; /* Prevent scrolling */
 }
 
 .full-calendar {
-  max-height: 500px; /* Ändern Sie dies entsprechend Ihrer Anforderungen */
-  overflow: hidden; /* Verhindern Sie das Scrollen */
+  max-height: 500px; /* Adjust as needed */
+  overflow: hidden; /* Prevent scrolling */
 }
 
 select {
   display: block;
   margin: 20px 0;
+}
+
+button {
+  margin: 5px;
+  padding: 10px;
+  background-color: #f06292;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #e91e63;
+}
+
+h3 {
+  color: #d81b60;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  margin: 5px 0;
+  padding: 10px;
+  background-color: #f8bbd0;
+  border-radius: 5px;
 }

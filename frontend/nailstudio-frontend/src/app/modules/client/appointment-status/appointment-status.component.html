@@ -1,2 +1,14 @@
 <app-navbar-kunde></app-navbar-kunde>
-<p>appointment-status works!</p>
+<div class="appointment-status-container">
+  <h2>Meine Termine</h2>
+  <ul>
+    <li *ngFor="let termin of termine">
+      <div class="appointment">
+        <p><strong>Datum:</strong> {{ termin.Datum | date: 'longDate' }}</p>
+        <p><strong>Uhrzeit:</strong> {{ termin.Terminzeiten?.Uhrzeit }}</p>
+        <p><strong>Dienstleistung:</strong> {{ termin.Dienstleistungen?.Bezeichnung }}</p>
+        <p><strong>Mitarbeiter:</strong> {{ termin.Mitarbeiter?.Name }}</p>
+      </div>
+    </li>
+  </ul>
+</div>

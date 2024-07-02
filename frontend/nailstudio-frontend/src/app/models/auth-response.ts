@@ -1,6 +1,7 @@
+// auth-response.ts
 export interface AuthResponse {
   token: string;
-  user: Kunde | Mitarbeiter; // Nutze eine Union-Typisierung hier
+  user: Kunde | Mitarbeiter;
 }
 
 export interface Kunde {
@@ -15,5 +16,5 @@ export interface Mitarbeiter {
   MitarbeiterID: number;
   Name: string;
   Email: string;
-  Rolle: string; // Beispielsweise 'Manager', 'Rezeptionist' etc.
+  Rolle: string;
 }

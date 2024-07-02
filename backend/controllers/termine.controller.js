@@ -17,6 +17,112 @@ exports.getAllTermine = async (req, res) => {
     }
 };
 
+// GET Termine für einen bestimmten Kunden
+exports.getTermineByKundenID = async (req, res) => {
+    const kundenID = req.params.kundenID;
+
+    try {
+        const termine = await Termine.findAll({
+            where: { KundenID: kundenID },
+            include: [
+                { model: Dienstleistungen, attributes: ['Bezeichnung'] },
+                { model: Mitarbeiter, attributes: ['Name'] },
+                { model: Terminzeiten, attributes: ['Uhrzeit'] }
+            ]
+        });
+
+        // Formatierung der Uhrzeiten für das Frontend
+        const formattedTermine = termine.map(termin => {
+            // Konvertiere die TerminzeitID zu den entsprechenden Uhrzeiten
+            let formattedTime = '';
+            switch (termin.TerminzeitID) {
+                case 1:
+                    formattedTime = '10:00';
+                    break;
+                case 2:
+                    formattedTime = '13:00';
+                    break;
+                case 3:
+                    formattedTime = '16:00';
+                    break;
+                default:
+                    formattedTime = 'Unbekannt';
+            }
+
+            return {
+                ...termin.toJSON(),
+                Terminzeiten: { Uhrzeit: formattedTime }
+            };
+        });
+
+        res.json(formattedTermine);
+    } catch (err) {
+        res.status(500).send(err.message);
+    }
+};
+
+// GET Termine für einen bestimmten Mitarbeiter
+exports.getTermineByMitarbeiterID = async (req, res) => {
+    const mitarbeiterID = req.params.mitarbeiterID;
+    const datum = req.query.datum;
+
+    console.log(`MitarbeiterID: ${mitarbeiterID}`);
+    console.log(`Datum: ${datum}`);
+
+    try {
+        const termine = await Termine.findAll({
+            where: {
+                MitarbeiterID: mitarbeiterID,
+                Datum: {
+                    [Op.between]: [
+                        new Date(datum + 'T00:00:00Z'),
+                        new Date(datum + 'T23:59:59Z')
+                    ]
+                }
+            },
+            include: [
+                { model: Dienstleistungen, attributes: ['Bezeichnung'] },
+                { model: Mitarbeiter, attributes: ['Name'] },
+                { model: Terminzeiten, attributes: ['Uhrzeit'] }
+            ]
+        });
+
+        console.log('Gefundene Termine:', termine);
+
+        // Formatierung der Uhrzeiten für das Frontend
+        const formattedTermine = termine.map(termin => {
+            // Konvertiere die TerminzeitID zu den entsprechenden Uhrzeiten
+            let formattedTime = '';
+            switch (termin.TerminzeitID) {
+                case 1:
+                    formattedTime = '10:00';
+                    break;
+                case 2:
+                    formattedTime = '13:00';
+                    break;
+                case 3:
+                    formattedTime = '16:00';
+                    break;
+                default:
+                    formattedTime = 'Unbekannt';
+            }
+
+            return {
+                ...termin.toJSON(),
+                Terminzeiten: { Uhrzeit: formattedTime }
+            };
+        });
+
+        console.log('Formatierte Termine:', formattedTermine);
+        res.json(formattedTermine);
+    } catch (err) {
+        res.status(500).send(err.message);
+    }
+};
+
+
+
+
 // POST neuen Termin erstellen
 exports.createTermin = [
     body('Datum').isISO8601().toDate(),

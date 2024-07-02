@@ -14,6 +14,6 @@ import { MatButtonModule } from '@angular/material/button';
     RouterModule,
     MatToolbarModule,
     MatButtonModule
-  ]
+  ],
 })
 export class NavbarKundeComponent {}
