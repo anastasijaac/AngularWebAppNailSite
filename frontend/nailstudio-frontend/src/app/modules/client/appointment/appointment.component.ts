@@ -4,11 +4,13 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { DienstleistungenService } from '../../../services/dienstleistungen.service';
 import { TermineService } from '../../../services/termine.service';
 import { AuthService } from '../../../services/auth.service';
 import { NavbarKundeComponent } from '../../../navigation/navbar-kunde/navbar-kunde.component';
 import { Router } from '@angular/router';
+import { BestaetigungsDialogComponent } from '../bestaetigungs-dialog/bestaetigungs-dialog.component';
 
 @Component({
   selector: 'app-appointment',
@@ -36,7 +38,8 @@ export class AppointmentComponent implements OnInit, AfterViewInit {
     private dienstleistungenService: DienstleistungenService,
     private appointmentService: TermineService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -63,6 +66,7 @@ export class AppointmentComponent implements OnInit, AfterViewInit {
 
   initializeCalendar() {
     if (typeof window !== 'undefined') {
+      const today = new Date();
       this.calendarOptions = {
         plugins: [dayGridPlugin, interactionPlugin],
         initialView: 'dayGridMonth',
@@ -72,6 +76,9 @@ export class AppointmentComponent implements OnInit, AfterViewInit {
           center: 'title',
           right: ''
         },
+        validRange: {
+          start: today, // Prevent selection of past dates
+        },
         dateClick: this.handleDateClick.bind(this),
         selectable: true,
         selectOverlap: false
@@ -80,9 +87,13 @@ export class AppointmentComponent implements OnInit, AfterViewInit {
   }
 
   handleDateClick(arg: any) {
-    this.selectedDate = arg.dateStr;
-    this.highlightSelectedDate(arg.dateStr);
-    console.log(`Selected date: ${this.selectedDate}`);
+    const clickedDate = new Date(arg.dateStr);
+    const today = new Date();
+    if (clickedDate >= today) { // Only allow selection of today or future dates
+      this.selectedDate = arg.dateStr;
+      this.highlightSelectedDate(arg.dateStr);
+      console.log(`Selected date: ${this.selectedDate}`);
+    }
   }
 
   selectTime(time: string) {
@@ -148,7 +159,7 @@ export class AppointmentComponent implements OnInit, AfterViewInit {
 
         this.appointmentService.bookAppointment(appointmentData).subscribe({
           next: (response) => {
-            alert('Termin erfolgreich gebucht!');
+            this.openConfirmationDialog();
             this.router.navigate(['/appointment-status']);
           },
           error: (error) => {
@@ -161,6 +172,12 @@ export class AppointmentComponent implements OnInit, AfterViewInit {
     } else {
       alert('Bitte melden Sie sich zuerst an.');
     }
+  }
+
+  openConfirmationDialog(): void {
+    this.dialog.open(BestaetigungsDialogComponent, {
+      width: '300px',
+    });
   }
 
   onServiceChange() {

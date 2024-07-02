@@ -1,0 +1,23 @@
+.dialog-container {
+  text-align: center;
+  padding: 20px;
+  background-color: #fdfdfd;
+  border-radius: 10px;
+  font-family: 'Playfair Display', serif;
+}
+
+.logo {
+  width: 100px;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+h2 {
+  color: #ad1457;
+  margin-bottom: 20px;
+}
+
+.content p {
+  font-size: 18px;
+  color: #333;
+}
