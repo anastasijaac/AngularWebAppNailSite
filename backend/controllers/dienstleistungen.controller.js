@@ -1,4 +1,4 @@
-const { body, validationResult } = require('express-validator');
+const {body, validationResult} = require('express-validator');
 const Dienstleistungen = require('../models/Dienstleistungen');
 
 // GET alle Dienstleistungen

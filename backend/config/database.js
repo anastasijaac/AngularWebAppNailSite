@@ -1,4 +1,4 @@
-const { Sequelize } = require('sequelize');
+const {Sequelize} = require('sequelize');
 
 const sequelize = new Sequelize('naildata', 'nailmember', 'webangular123!', {
     host: 'naildata.database.windows.net',

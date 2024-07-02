@@ -5,7 +5,7 @@ import interactionPlugin from '@fullcalendar/interaction';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DienstleistungenService } from '../../../services/dienstleistungen.service';
-import { AppointmentService } from '../../../services/appointment.service';
+import { TermineService } from '../../../services/termine.service';
 import { AuthService } from '../../../services/auth.service';
 import { NavbarKundeComponent } from '../../../navigation/navbar-kunde/navbar-kunde.component';
 import { Router } from '@angular/router';
@@ -34,7 +34,7 @@ export class AppointmentComponent implements OnInit, AfterViewInit {
 
   constructor(
     private dienstleistungenService: DienstleistungenService,
-    private appointmentService: AppointmentService,
+    private appointmentService: TermineService,
     private authService: AuthService,
     private router: Router
   ) {}

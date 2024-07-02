@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
+
 .appointment-container {
   display: flex;
   flex-direction: column;
@@ -5,7 +7,10 @@
   background-color: #fdfdfd; /* soft pink background */
   padding: 20px;
   border-radius: 10px;
+  font-family: 'Playfair Display', serif; /* Setzen Sie die Schriftart global */
+  animation: fadeIn 1s ease-in-out; /* Fade-In-Effekt anwenden */
 }
+
 
 h2 {
   color: #ad1457; /* elegant rose color */

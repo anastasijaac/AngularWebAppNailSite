@@ -12,9 +12,14 @@ exports.getAllVerfuegbareTermine = async (req, res) => {
 
 // POST neues VerfuegbareTermin erstellen
 exports.createVerfuegbareTermin = async (req, res) => {
-    const { Datum, TerminzeitID, MitarbeiterID, Verfuegbar } = req.body;
+    const {Datum, TerminzeitID, MitarbeiterID, Verfuegbar} = req.body;
     try {
-        const neuesVerfuegbareTermin = await VerfuegbareTermine.create({ Datum, TerminzeitID, MitarbeiterID, Verfuegbar });
+        const neuesVerfuegbareTermin = await VerfuegbareTermine.create({
+            Datum,
+            TerminzeitID,
+            MitarbeiterID,
+            Verfuegbar
+        });
         res.status(201).send(neuesVerfuegbareTermin);
     } catch (err) {
         res.status(500).send(err.message);

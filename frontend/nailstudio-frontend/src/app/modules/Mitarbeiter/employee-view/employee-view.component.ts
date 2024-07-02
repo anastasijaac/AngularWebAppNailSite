@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NavbarMitarbeiterComponent } from "../../../navigation/navbar-mitarbeiter/navbar-mitarbeiter.component";
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../../services/auth.service';
-import { AppointmentService } from '../../../services/appointment.service';
+import { TermineService } from '../../../services/termine.service';
 
 @Component({
   selector: 'app-employee-view',
@@ -19,7 +19,7 @@ export class EmployeeViewComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private authService: AuthService,
-    private appointmentService: AppointmentService
+    private appointmentService: TermineService
   ) {
     this.datum = new Date().toISOString().split('T')[0]; // Aktuelles Datum im Format YYYY-MM-DD
   }

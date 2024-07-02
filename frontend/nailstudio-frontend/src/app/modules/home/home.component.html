@@ -1,16 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8" />
-  <title>Your Page Title</title>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap"
-    rel="stylesheet"
-  />
-</head>
-
 <app-navbar></app-navbar>
-<div class="container">
+<div class="container fade-in">
   <div class="text">
     <div class="slogan">
       <h1>Eleganz bis in die Fingerspitzen.</h1>
@@ -20,7 +9,7 @@
       <button class="register-button" (click)="navigateToLogin()">Melde dich jetzt an und buche deinen Termin</button>
     </div>
   </div>
-  <div class="image">
-    <img src="assets/n1.jpg" alt="Nagelbild" style="width: 50%; height: auto">
+  <div class="carousel">
+    <app-photo-gallery></app-photo-gallery>
   </div>
 </div>

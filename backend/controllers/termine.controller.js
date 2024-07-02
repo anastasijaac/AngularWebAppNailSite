@@ -1,11 +1,11 @@
 // controllers/termine.controller.js
-const { body, validationResult } = require('express-validator');
+const {body, validationResult} = require('express-validator');
 const Termine = require('../models/Termine');
 const Dienstleistungen = require('../models/Dienstleistungen');
 const Mitarbeiter = require('../models/Mitarbeiter');
 const VerfuegbareTermine = require('../models/VerfuegbareTermine');
 const Terminzeiten = require('../models/Terminzeiten');
-const { Op } = require('sequelize');
+const {Op} = require('sequelize');
 
 // GET alle Termine
 exports.getAllTermine = async (req, res) => {
@@ -23,11 +23,11 @@ exports.getTermineByKundenID = async (req, res) => {
 
     try {
         const termine = await Termine.findAll({
-            where: { KundenID: kundenID },
+            where: {KundenID: kundenID},
             include: [
-                { model: Dienstleistungen, attributes: ['Bezeichnung'] },
-                { model: Mitarbeiter, attributes: ['Name'] },
-                { model: Terminzeiten, attributes: ['Uhrzeit'] }
+                {model: Dienstleistungen, attributes: ['Bezeichnung']},
+                {model: Mitarbeiter, attributes: ['Name']},
+                {model: Terminzeiten, attributes: ['Uhrzeit']}
             ]
         });
 
@@ -51,7 +51,7 @@ exports.getTermineByKundenID = async (req, res) => {
 
             return {
                 ...termin.toJSON(),
-                Terminzeiten: { Uhrzeit: formattedTime }
+                Terminzeiten: {Uhrzeit: formattedTime}
             };
         });
 
@@ -81,9 +81,9 @@ exports.getTermineByMitarbeiterID = async (req, res) => {
                 }
             },
             include: [
-                { model: Dienstleistungen, attributes: ['Bezeichnung'] },
-                { model: Mitarbeiter, attributes: ['Name'] },
-                { model: Terminzeiten, attributes: ['Uhrzeit'] }
+                {model: Dienstleistungen, attributes: ['Bezeichnung']},
+                {model: Mitarbeiter, attributes: ['Name']},
+                {model: Terminzeiten, attributes: ['Uhrzeit']}
             ]
         });
 
@@ -109,7 +109,7 @@ exports.getTermineByMitarbeiterID = async (req, res) => {
 
             return {
                 ...termin.toJSON(),
-                Terminzeiten: { Uhrzeit: formattedTime }
+                Terminzeiten: {Uhrzeit: formattedTime}
             };
         });
 
@@ -121,25 +121,23 @@ exports.getTermineByMitarbeiterID = async (req, res) => {
 };
 
 
-
-
 // POST neuen Termin erstellen
 exports.createTermin = [
     body('Datum').isISO8601().toDate(),
-    body('TerminzeitID').isInt({ min: 1 }),
-    body('KundenID').isInt({ min: 1 }),
-    body('MitarbeiterID').isInt({ min: 1 }),
-    body('DienstleistungsID').isInt({ min: 1 }),
+    body('TerminzeitID').isInt({min: 1}),
+    body('KundenID').isInt({min: 1}),
+    body('MitarbeiterID').isInt({min: 1}),
+    body('DienstleistungsID').isInt({min: 1}),
     async (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
+            return res.status(400).json({errors: errors.array()});
         }
 
-        const { Datum, TerminzeitID, KundenID, MitarbeiterID, DienstleistungsID } = req.body;
+        const {Datum, TerminzeitID, KundenID, MitarbeiterID, DienstleistungsID} = req.body;
         const dienstleistung = await Dienstleistungen.findByPk(DienstleistungsID);
         if (!dienstleistung) {
-            return res.status(404).json({ msg: "Dienstleistung nicht gefunden" });
+            return res.status(404).json({msg: "Dienstleistung nicht gefunden"});
         }
 
         const conflicts = await Termine.findAll({
@@ -151,7 +149,7 @@ exports.createTermin = [
         });
 
         if (conflicts.length >= 3) {
-            return res.status(409).json({ message: "Mitarbeiter hat bereits 3 Termine an diesem Tag" });
+            return res.status(409).json({message: "Mitarbeiter hat bereits 3 Termine an diesem Tag"});
         }
 
         const neuerTermin = await Termine.create({
@@ -167,7 +165,7 @@ exports.createTermin = [
 
 // Verfügbare Mitarbeiter abrufen
 exports.getAvailableEmployees = async (req, res) => {
-    const { dienstleistungsID, datum } = req.query;
+    const {dienstleistungsID, datum} = req.query;
 
     try {
         const terminzeiten = await Terminzeiten.findAll();
@@ -210,7 +208,7 @@ exports.getAvailableEmployees = async (req, res) => {
 
 // Überprüfung der Terminverfügbarkeit
 exports.checkTerminAvailability = async (req, res) => {
-    const { Datum, TerminzeitID, MitarbeiterID } = req.body;
+    const {Datum, TerminzeitID, MitarbeiterID} = req.body;
 
     const termineAmTag = await Termine.findAll({
         where: {
@@ -221,9 +219,9 @@ exports.checkTerminAvailability = async (req, res) => {
     });
 
     if (termineAmTag.length > 0) {
-        res.status(400).json({ message: 'Zeitfenster nicht verfügbar' });
+        res.status(400).json({message: 'Zeitfenster nicht verfügbar'});
     } else {
-        res.status(200).json({ message: 'Termin verfügbar' });
+        res.status(200).json({message: 'Termin verfügbar'});
     }
 };
 

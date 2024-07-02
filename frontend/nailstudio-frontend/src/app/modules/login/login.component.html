@@ -12,7 +12,8 @@
 <body>
 <div class="login-container">
   <div class="login-form">
-    <h2>Login</h2>
+    <h2>Anmeldung</h2>
+    <h3>zum Swan Member <img src="assets\swan-icon.png" alt="Swan Icon"></h3>
     <form (ngSubmit)="onLogin()">
       <label for="email">Email:</label>
       <input type="email" id="email" [(ngModel)]="email" name="email" required>
@@ -20,9 +21,9 @@
       <label for="password">Passwort:</label>
       <input type="password" id="password" [(ngModel)]="password" name="password" required>
 
-      <button type="submit">Submit</button>
+      <button type="submit">Bestätigen</button>
     </form>
-    <p>Don't have an account yet? <a [routerLink]="['/register']">Register here</a></p>
+    <p>Noch kein Swan Member? <a [routerLink]="['/register']">Jetzt Registrieren</a></p>
     <button class="back-button" (click)="navigateToHome()">Zurück zu Home</button>
   </div>
 </div>

@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import {MatAnchor, MatButtonModule} from "@angular/material/button";
 import {MatToolbar, MatToolbarModule} from "@angular/material/toolbar";
-import {RouterLink, RouterLinkActive, RouterModule} from "@angular/router";
+import {Router, RouterLink, RouterLinkActive, RouterModule} from "@angular/router";
 import { CommonModule } from '@angular/common';
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-navbar-mitarbeiter',
@@ -15,6 +16,11 @@ import { CommonModule } from '@angular/common';
       MatToolbarModule,
       MatButtonModule
     ],
-
 })
-export class NavbarMitarbeiterComponent {}
+export class NavbarMitarbeiterComponent {constructor(private authService: AuthService, private router: Router) {}
+
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/']); // Navigiert zurück zur Startseite
+  }
+}

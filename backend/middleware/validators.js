@@ -1,14 +1,14 @@
-const { body, validationResult } = require('express-validator');
+const {body, validationResult} = require('express-validator');
 
 // Validierung für Kunde
 exports.validateKunde = [
     body('Name').notEmpty().withMessage('Name ist erforderlich'),
     body('Email').isEmail().withMessage('Email ist ungültig'),
-    body('Passwort').isLength({ min: 6 }).withMessage('Passwort muss mindestens 6 Zeichen lang sein'),
+    body('Passwort').isLength({min: 6}).withMessage('Passwort muss mindestens 6 Zeichen lang sein'),
     (req, res, next) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
+            return res.status(400).json({errors: errors.array()});
         }
         next();
     }
@@ -21,7 +21,7 @@ exports.validateMitarbeiter = [
     (req, res, next) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
+            return res.status(400).json({errors: errors.array()});
         }
         next();
     }
@@ -30,12 +30,12 @@ exports.validateMitarbeiter = [
 // Validierung für Dienstleistungen
 exports.validateDienstleistung = [
     body('Bezeichnung').notEmpty().withMessage('Bezeichnung ist erforderlich'),
-    body('Dauer').isInt({ min: 1 }).withMessage('Dauer muss eine positive Ganzzahl sein'),
-    body('Preis').isFloat({ min: 0 }).withMessage('Preis muss eine positive Zahl sein'),
+    body('Dauer').isInt({min: 1}).withMessage('Dauer muss eine positive Ganzzahl sein'),
+    body('Preis').isFloat({min: 0}).withMessage('Preis muss eine positive Zahl sein'),
     (req, res, next) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
+            return res.status(400).json({errors: errors.array()});
         }
         next();
     }
@@ -44,12 +44,12 @@ exports.validateDienstleistung = [
 // Validierung für Feedback
 exports.validateFeedback = [
     body('Text').notEmpty().withMessage('Text ist erforderlich'),
-    body('Bewertung').isInt({ min: 1, max: 5 }).withMessage('Bewertung muss zwischen 1 und 5 liegen'),
+    body('Bewertung').isInt({min: 1, max: 5}).withMessage('Bewertung muss zwischen 1 und 5 liegen'),
     body('TerminID').isInt().withMessage('TerminID muss eine Ganzzahl sein'),
     (req, res, next) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
+            return res.status(400).json({errors: errors.array()});
         }
         next();
     }
@@ -62,7 +62,7 @@ exports.validateFotografien = [
     (req, res, next) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
+            return res.status(400).json({errors: errors.array()});
         }
         next();
     }
@@ -79,7 +79,7 @@ exports.validateTermine = [
     (req, res, next) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
+            return res.status(400).json({errors: errors.array()});
         }
         next();
     }

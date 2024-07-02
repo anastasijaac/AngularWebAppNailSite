@@ -1,9 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
+
 .employee-view-container {
   padding: 20px;
   background-color: #fdfdfd;
   border-radius: 10px;
   max-width: 600px;
   margin: 20px auto;
+  font-family: 'Playfair Display', serif; /* Setzen Sie die Schriftart global */
+  animation: fadeIn 1s ease-in-out; /* Fade-In-Effekt anwenden */
 }
 
 h2 {

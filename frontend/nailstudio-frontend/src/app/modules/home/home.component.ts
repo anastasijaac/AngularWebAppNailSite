@@ -1,17 +1,15 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router, RouterModule } from '@angular/router';
+import { PhotoGalleryComponent } from '../photo-gallery/photo-gallery.component';
 import { NavbarComponent } from '../../navigation/navbar/navbar.component'; // Achte auf den korrekten relativen Pfad
-import { Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [
-    CommonModule, // Grundlegendes Modul für Angular-Direktiven
-    NavbarComponent, // Die Navbar, die als Sidebar dient
-    MatButtonModule // Material Button Modul
-  ],
+  imports: [CommonModule, RouterModule, PhotoGalleryComponent, NavbarComponent, MatButtonModule, MatIconModule],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })

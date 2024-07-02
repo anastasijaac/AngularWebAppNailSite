@@ -1,30 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
 
-body, html {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
+.container {
+  display: flex;
+  justify-content: center; /* Platzierung der Elemente nebeneinander */
+  align-items: center; /* Elemente vertikal zentrieren */
+  padding: 80px;
   font-family: 'Playfair Display', serif; /* Setzen Sie die Schriftart global */
 }
 
-.container {
-  display: flex;
-  justify-content: center; /* Zentrieren Sie den Inhalt horizontal */
-  align-items: center; /* Zentrieren Sie den Inhalt vertikal */
-  height: 80vh; /* 80% der Bildschirmhöhe */
-  padding: 20px; /* Abstand zum Rand */
-}
-
 .text {
-  margin: 50px;
-  flex: 1; /* Der Textbereich dehnt sich aus, um den verfügbaren Raum zu füllen */
+  flex: 2; /* Erhöht die Flex-Eigenschaft für den Textbereich */
+  max-width: 1000px; /* Erhöht die maximale Breite für den Textbereich */
+  text-align: left; /* Text linksbündig */
+  margin-top: 150px; /* Abstand zum oberen Rand */
 }
 
 .slogan h1 {
-  color: #d29db0; /* Elegante Farbwahl */
+  color: #d29db0;
   font-size: 2.5rem;
   margin-bottom: 20px;
+  font-family: 'Playfair Display', serif; /* Setzen Sie die Schriftart global */
 }
 
 .slogan p {
@@ -37,29 +32,41 @@ body, html {
 .register-button {
   font-size: 1.1rem;
   padding: 12px 24px;
-  background-color: #f3bfd9; /* Hintergrundfarbe */
-  color: #262626; /* Schriftfarbe */
+  background-color: #f3bfd9;
+  color: #262626;
   border: none;
   border-radius: 30px;
   cursor: pointer;
   transition: background-color 0.3s, transform 0.3s;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Leichte Schatten für Tiefe */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .register-button:hover {
   background-color: #ffbad5;
-  transform: scale(1.05); /* Leichte Vergrößerung beim Hover */
+  transform: scale(1.05);
 }
 
-.image {
-  flex: 1; /* Der Bildbereich dehnt sich aus, um den verfügbaren Raum zu füllen */
-  text-align: center; /* Zentrieren Sie das Bild horizontal */
-  margin-left: 20px; /* Abstand von der Navbar */
+.carousel {
+  flex: 1;
+  max-width: 500px; /* Breite des Karussells */
+  width: 100%;
+  height: 300px; /* Feste Höhe für das Karussell */
+  margin-top: 10px; /* Positioniert das Karussell näher an den Text */
+  margin-left: 20px; /* Abstand zum Text */
+  position: relative; /* Positionierung des Karussells */
+}
+.carousel-container {
+  width: 100%;
+  height: 100%; /* Stellt sicher, dass das Karussell die feste Höhe ausfüllt */
+  overflow: hidden;
+  border-radius: 10px;
+  position: relative;
 }
 
-.image img {
-  max-width: 80%; /* Stellen Sie sicher, dass das Bild responsiv ist */
-  max-height: 500px; /* Maximale Höhe des Bildes */
-  height: auto;
-  border-radius: 10px; /* Runde Ecken für ein elegantes Aussehen */
-}
+
+
+
+
+
+
+

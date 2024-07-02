@@ -1,13 +1,12 @@
-<!-- navbar-kunde.component.html -->
 <mat-toolbar color="primary" class="navbar-toolbar">
   <div class="navbar-brand">
-    <a routerLink="/">
+    <a>
       <img src="assets/LOGO-SWAN-LAKE.jpg" alt="Swan Lake Nails Logo" class="navbar-logo">
     </a>
   </div>
-  <span class="spacer"></span>
   <div class="navbar-nav">
     <a mat-button routerLink="/employee-view" routerLinkActive="active">Bookings for today</a>
     <a mat-button routerLink="/feedback-termin" routerLinkActive="active">Feedback</a>
+    <button mat-button class="logout-button" (click)="logout()">Abmelden</button>
   </div>
 </mat-toolbar>

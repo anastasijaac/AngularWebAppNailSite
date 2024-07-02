@@ -1,4 +1,3 @@
-// auth-response.ts
 export interface AuthResponse {
   token: string;
   user: Kunde | Mitarbeiter;

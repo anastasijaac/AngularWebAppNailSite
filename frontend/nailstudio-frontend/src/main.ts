@@ -7,10 +7,14 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import '@fullcalendar/core';
 import '@fullcalendar/daygrid';
 import '@fullcalendar/interaction';
+import {AuthGuard} from "./app/services/auth.guard";
+import {AuthService} from "./app/services/auth.service";
 
 bootstrapApplication(AppComponent, {
   providers: [
     provideRouter(appRoutes, withComponentInputBinding()),
-    provideHttpClient(), provideAnimationsAsync()
+    provideHttpClient(), provideAnimationsAsync(),
+    AuthService,
+    AuthGuard
   ]
 }).catch(err => console.error(err));
