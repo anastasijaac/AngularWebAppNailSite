@@ -107,4 +107,12 @@ router.post('/login', [
     }
 });
 
+// Logout Route
+router.post('/logout', (req, res) => {
+    // Optional: Add any server-side logout logic here, like logging the logout event
+    console.log('Logout attempt');
+    res.status(200).json({ msg: 'Logout successful' });
+});
+
+
 module.exports = router;
