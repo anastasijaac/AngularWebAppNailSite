@@ -67,6 +67,8 @@ export class AppointmentComponent implements OnInit, AfterViewInit {
   initializeCalendar() {
     if (typeof window !== 'undefined') {
       const today = new Date();
+      const maxDate = new Date(2025, 5, 30); // June 30, 2025
+
       this.calendarOptions = {
         plugins: [dayGridPlugin, interactionPlugin],
         initialView: 'dayGridMonth',
@@ -77,7 +79,8 @@ export class AppointmentComponent implements OnInit, AfterViewInit {
           right: ''
         },
         validRange: {
-          start: today, // Prevent selection of past dates
+          start: today,
+          end: maxDate
         },
         dateClick: this.handleDateClick.bind(this),
         selectable: true,
@@ -85,6 +88,7 @@ export class AppointmentComponent implements OnInit, AfterViewInit {
       };
     }
   }
+
 
   handleDateClick(arg: any) {
     const clickedDate = new Date(arg.dateStr);

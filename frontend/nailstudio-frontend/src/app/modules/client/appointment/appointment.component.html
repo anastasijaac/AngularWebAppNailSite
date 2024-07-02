@@ -1,6 +1,7 @@
 <app-navbar-kunde></app-navbar-kunde>
 
 <div class="appointment-container">
+  <h1>Buche dein nächsten Swan Lake Nails Termin</h1>
   <h2>1. Wähle eine Dienstleistung</h2>
   <select [(ngModel)]="selectedService" (change)="onServiceChange()">
     <option *ngFor="let service of services" [value]="service.DienstleistungsID">{{ service.Bezeichnung }}</option>

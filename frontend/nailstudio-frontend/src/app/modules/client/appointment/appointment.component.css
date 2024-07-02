@@ -11,6 +11,12 @@
   animation: fadeIn 1s ease-in-out; /* Fade-In-Effekt anwenden */
 }
 
+h1{
+  text-align: center;
+  color: #da70a4; /* Farbton passend zum Design */
+  font-family: 'Playfair Display', serif;
+}
+
 
 h2 {
   color: #ad1457; /* elegant rose color */

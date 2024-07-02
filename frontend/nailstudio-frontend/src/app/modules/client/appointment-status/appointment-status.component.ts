@@ -13,6 +13,8 @@ import { AuthService } from '../../../services/auth.service';
 })
 export class AppointmentStatusComponent implements OnInit {
   termine: any[] = [];
+  filteredTermine: any[] = [];
+  filter: string = 'all'; // Default filter is 'all'
 
   constructor(private http: HttpClient, private authService: AuthService) {
   }
@@ -33,11 +35,25 @@ export class AppointmentStatusComponent implements OnInit {
             Mitarbeiter: termin.Mitarbeiter || { Name: 'Unbekannt' },
             Terminzeiten: termin.Terminzeiten || { Uhrzeit: 'Unbekannt' }
           }));
+          this.filterAppointments(this.filter); // Apply initial filter
         },
         error: (error) => {
           console.error('Fehler beim Laden der Termine', error);
         }
       });
+    }
+  }
+
+  filterAppointments(filter: string) {
+    this.filter = filter;
+    const now = new Date().toISOString();
+
+    if (filter === 'upcoming') {
+      this.filteredTermine = this.termine.filter(termin => termin.Datum >= now);
+    } else if (filter === 'past') {
+      this.filteredTermine = this.termine.filter(termin => termin.Datum < now);
+    } else {
+      this.filteredTermine = this.termine;
     }
   }
 }
