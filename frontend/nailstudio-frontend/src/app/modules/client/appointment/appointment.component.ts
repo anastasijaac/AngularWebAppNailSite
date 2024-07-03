@@ -89,14 +89,30 @@ export class AppointmentComponent implements OnInit, AfterViewInit {
     }
   }
 
-
   handleDateClick(arg: any) {
     const clickedDate = new Date(arg.dateStr);
     const today = new Date();
-    if (clickedDate >= today) { // Only allow selection of today or future dates
+    if (clickedDate >= new Date(today.getFullYear(), today.getMonth(), today.getDate())) {
       this.selectedDate = arg.dateStr;
       this.highlightSelectedDate(arg.dateStr);
       console.log(`Selected date: ${this.selectedDate}`);
+      this.filterAvailableTimes();
+    }
+  }
+
+  filterAvailableTimes() {
+    const today = new Date();
+    const currentTime = today.getHours() + ':' + ('0' + today.getMinutes()).slice(-2);
+
+    if (this.selectedDate === today.toISOString().split('T')[0]) {
+      // Filter out past times if the selected date is today
+      this.availableTimes = this.availableTimes.filter(timeObj => timeObj.time > currentTime);
+    } else {
+      this.availableTimes = [
+        { time: '10:00', id: 1 },
+        { time: '13:00', id: 2 },
+        { time: '16:00', id: 3 }
+      ];
     }
   }
 
