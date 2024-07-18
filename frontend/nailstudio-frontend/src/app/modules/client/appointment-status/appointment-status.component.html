@@ -3,9 +3,9 @@
   <h2>Meine Termine</h2>
 
   <div class="filter-buttons">
-    <button (click)="filterAppointments('upcoming')">Anstehend</button>
-    <button (click)="filterAppointments('past')">Vergangen</button>
-    <button (click)="filterAppointments('all')">Alle</button>
+    <button (click)="filterAppointments('upcoming')" [class.active]="filter === 'upcoming'">Anstehend</button>
+    <button (click)="filterAppointments('past')" [class.active]="filter === 'past'">Vergangen</button>
+    <button (click)="filterAppointments('all')" [class.active]="filter === 'all'">Alle</button>
   </div>
 
   <h3 *ngIf="filteredTermine.length === 0">Keine Termine verfügbar</h3>

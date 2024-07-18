@@ -2,27 +2,27 @@
 
 <div class="appointment-container">
   <h1>Buche dein nächsten Swan Lake Nails Termin</h1>
-  <h2>1. Wähle eine Dienstleistung</h2>
+  <h2>Wähle eine Dienstleistung</h2>
   <select [(ngModel)]="selectedService" (change)="onServiceChange()">
     <option *ngFor="let service of services" [value]="service.DienstleistungsID">{{ service.Bezeichnung }}</option>
   </select>
 
   <div *ngIf="selectedService">
-    <h2>2. Wähle ein Datum</h2>
+    <h2>Wähle ein Datum</h2>
     <div class="calendar-container">
       <full-calendar *ngIf="calendarOptions" [options]="calendarOptions" class="full-calendar"></full-calendar>
     </div>
   </div>
 
   <div *ngIf="selectedDate">
-    <h2>3. Wähle eine Uhrzeit</h2>
+    <h2>Wähle eine Uhrzeit</h2>
     <div class="time-slots">
       <button *ngFor="let timeObj of availableTimes" (click)="selectTime(timeObj.time)" [class.selected]="timeObj.time === selectedTime">{{ timeObj.time }}</button>
     </div>
   </div>
 
   <div *ngIf="selectedTime && filteredEmployees.length > 0">
-    <h2>4. Wähle einen Mitarbeiter</h2>
+    <h2>Wähle einen Mitarbeiter</h2>
     <div class="employee-list">
       <div *ngFor="let employee of filteredEmployees" (click)="selectEmployee(employee)" [class.selected]="employee === selectedEmployee">
         {{ employee.Name }}
@@ -30,5 +30,5 @@
     </div>
   </div>
 
-  <button *ngIf="selectedEmployee" (click)="bookAppointment()">5. Termin Buchen</button>
+  <button *ngIf="selectedEmployee" (click)="bookAppointment()">Termin Buchen</button>
 </div>

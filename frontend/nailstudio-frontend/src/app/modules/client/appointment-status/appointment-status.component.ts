@@ -14,10 +14,9 @@ import { AuthService } from '../../../services/auth.service';
 export class AppointmentStatusComponent implements OnInit {
   termine: any[] = [];
   filteredTermine: any[] = [];
-  filter: string = 'all'; // Default filter is 'all'
+  filter: string = 'all';
 
-  constructor(private http: HttpClient, private authService: AuthService) {
-  }
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.loadTermine();
@@ -29,6 +28,7 @@ export class AppointmentStatusComponent implements OnInit {
       const kundenID = currentUser.KundenID;
       this.http.get<any[]>(`http://localhost:3000/api/termine/kunde/${kundenID}`).subscribe({
         next: (data) => {
+          console.log('Daten vom Backend:', data);
           this.termine = data.map(termin => ({
             ...termin,
             Dienstleistungen: termin.Dienstleistungen || { Bezeichnung: 'Unbekannt' },
@@ -46,14 +46,29 @@ export class AppointmentStatusComponent implements OnInit {
 
   filterAppointments(filter: string) {
     this.filter = filter;
-    const now = new Date().toISOString();
+    const now = new Date();
+    console.log('Aktuelle Zeit im Frontend:', now);
 
     if (filter === 'upcoming') {
-      this.filteredTermine = this.termine.filter(termin => termin.Datum >= now);
+      this.filteredTermine = this.termine.filter(termin => {
+        const terminDate = new Date(termin.Datum);
+        const [hours, minutes] = termin.Terminzeiten?.Uhrzeit.split(':').map(Number);
+        const terminDateTime = new Date(terminDate.getFullYear(), terminDate.getMonth(), terminDate.getDate(), hours, minutes);
+        console.log('Prüfe Termin (anstehend):', terminDateTime, '>=', now);
+        return terminDateTime >= now;
+      });
     } else if (filter === 'past') {
-      this.filteredTermine = this.termine.filter(termin => termin.Datum < now);
+      this.filteredTermine = this.termine.filter(termin => {
+        const terminDate = new Date(termin.Datum);
+        const [hours, minutes] = termin.Terminzeiten?.Uhrzeit.split(':').map(Number);
+        const terminDateTime = new Date(terminDate.getFullYear(), terminDate.getMonth(), terminDate.getDate(), hours, minutes);
+        console.log('Prüfe Termin (vergangen):', terminDateTime, '<', now);
+        return terminDateTime < now;
+      });
     } else {
       this.filteredTermine = this.termine;
     }
+
+    console.log('Gefilterte Termine:', this.filteredTermine);
   }
 }

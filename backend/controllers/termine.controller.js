@@ -21,17 +21,24 @@ exports.getAllTermine = async (req, res) => {
 exports.getTermineByKundenID = async (req, res) => {
     const kundenID = req.params.kundenID;
 
+    if (!kundenID) {
+        return res.status(400).send('KundenID fehlt in der Anfrage.');
+    }
+
     try {
         const termine = await Termine.findAll({
-            where: {KundenID: kundenID},
+            where: { KundenID: kundenID },
             include: [
-                {model: Dienstleistungen, attributes: ['Bezeichnung']},
-                {model: Mitarbeiter, attributes: ['Name']},
-                {model: Terminzeiten, attributes: ['Uhrzeit']}
+                { model: Dienstleistungen, attributes: ['Bezeichnung'] },
+                { model: Mitarbeiter, attributes: ['Name'] },
+                { model: Terminzeiten, attributes: ['Uhrzeit'] }
             ]
         });
 
-        // Formatierung der Uhrzeiten für das Frontend
+        const now = new Date();
+        console.log('Aktuelle Zeit:', now);
+
+        // Formatierung der Uhrzeiten für das Frontend und Filterung vergangener Termine
         const formattedTermine = termine.map(termin => {
             // Konvertiere die TerminzeitID zu den entsprechenden Uhrzeiten
             let formattedTime = '';
@@ -51,15 +58,19 @@ exports.getTermineByKundenID = async (req, res) => {
 
             return {
                 ...termin.toJSON(),
-                Terminzeiten: {Uhrzeit: formattedTime}
+                Terminzeiten: { Uhrzeit: formattedTime }
             };
         });
 
+        console.log('Formatierte Termine:', formattedTermine);
         res.json(formattedTermine);
     } catch (err) {
         res.status(500).send(err.message);
     }
 };
+
+
+
 
 // GET Termine für einen bestimmten Mitarbeiter
 exports.getTermineByMitarbeiterID = async (req, res) => {
