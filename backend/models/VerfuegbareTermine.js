@@ -10,7 +10,7 @@ const VerfuegbareTermine = sequelize.define('VerfuegbareTermine', {
         primaryKey: true
     },
     Datum: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY, // Nur Datum ohne Zeit
         allowNull: false
     },
     TerminzeitID: {

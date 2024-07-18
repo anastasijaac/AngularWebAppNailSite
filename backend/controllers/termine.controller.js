@@ -27,11 +27,11 @@ exports.getTermineByKundenID = async (req, res) => {
 
     try {
         const termine = await Termine.findAll({
-            where: { KundenID: kundenID },
+            where: {KundenID: kundenID},
             include: [
-                { model: Dienstleistungen, attributes: ['Bezeichnung'] },
-                { model: Mitarbeiter, attributes: ['Name'] },
-                { model: Terminzeiten, attributes: ['Uhrzeit'] }
+                {model: Dienstleistungen, attributes: ['Bezeichnung']},
+                {model: Mitarbeiter, attributes: ['Name']},
+                {model: Terminzeiten, attributes: ['Uhrzeit']}
             ]
         });
 
@@ -58,7 +58,7 @@ exports.getTermineByKundenID = async (req, res) => {
 
             return {
                 ...termin.toJSON(),
-                Terminzeiten: { Uhrzeit: formattedTime }
+                Terminzeiten: {Uhrzeit: formattedTime}
             };
         });
 
@@ -68,8 +68,6 @@ exports.getTermineByKundenID = async (req, res) => {
         res.status(500).send(err.message);
     }
 };
-
-
 
 
 // GET Termine für einen bestimmten Mitarbeiter
@@ -146,76 +144,92 @@ exports.createTermin = [
         }
 
         const {Datum, TerminzeitID, KundenID, MitarbeiterID, DienstleistungsID} = req.body;
-        const dienstleistung = await Dienstleistungen.findByPk(DienstleistungsID);
-        if (!dienstleistung) {
-            return res.status(404).json({msg: "Dienstleistung nicht gefunden"});
-        }
 
-        const conflicts = await Termine.findAll({
-            where: {
-                MitarbeiterID,
-                Datum,
-                TerminzeitID
+        try {
+            // Überprüfen, ob es einen Konflikt mit bestehenden Terminen gibt
+            const existingTermin = await Termine.findOne({
+                where: {
+                    MitarbeiterID,
+                    Datum,
+                    TerminzeitID
+                }
+            });
+
+            if (existingTermin) {
+                return res.status(409).json({message: "Dieser Termin ist bereits gebucht"});
             }
-        });
 
-        if (conflicts.length >= 3) {
-            return res.status(409).json({message: "Mitarbeiter hat bereits 3 Termine an diesem Tag"});
+            const neuerTermin = await Termine.create({
+                Datum,
+                TerminzeitID,
+                KundenID,
+                MitarbeiterID,
+                DienstleistungsID
+            });
+
+            res.status(201).json(neuerTermin);
+        } catch (err) {
+            res.status(500).send(err.message);
         }
-
-        const neuerTermin = await Termine.create({
-            Datum,
-            TerminzeitID,
-            KundenID,
-            MitarbeiterID,
-            DienstleistungsID
-        });
-        res.status(201).json(neuerTermin);
     }
 ];
 
 // Verfügbare Mitarbeiter abrufen
 exports.getAvailableEmployees = async (req, res) => {
-    const {dienstleistungsID, datum} = req.query;
+    const { Datum, TerminzeitID } = req.query;
 
     try {
-        const terminzeiten = await Terminzeiten.findAll();
-        let availableEmployees = [];
+        // Konvertiere das Datum zu einem ISO-String ohne Zeit
+        const dateOnly = new Date(Datum).toISOString().split('T')[0];
 
-        for (const terminzeit of terminzeiten) {
-            const availableEmployeesAtTime = await VerfuegbareTermine.findAll({
-                where: {
-                    Datum: datum,
-                    TerminzeitID: terminzeit.TerminzeitID,
-                    Verfuegbar: true
-                },
-                include: [Mitarbeiter]
-            });
+        // Debugging-Ausgabe
+        console.log(`Datum: ${dateOnly}, TerminzeitID: ${TerminzeitID}`);
 
-            for (const record of availableEmployeesAtTime) {
-                const termineCount = await Termine.count({
-                    where: {
-                        MitarbeiterID: record.MitarbeiterID,
-                        Datum: datum,
-                        TerminzeitID: terminzeit.TerminzeitID
-                    }
-                });
+        // Abrufen der verfügbaren Mitarbeiter
+        const availableEmployees = await VerfuegbareTermine.findAll({
+            where: {
+                Datum: dateOnly,
+                TerminzeitID,
+                Verfuegbar: true
+            },
+            include: [Mitarbeiter]
+        });
 
-                if (termineCount < 3) {
-                    availableEmployees.push({
-                        MitarbeiterID: record.MitarbeiterID,
-                        Name: record.Mitarbeiter.Name,
-                        Terminzeit: terminzeit.Uhrzeit
-                    });
-                }
-            }
-        }
+        // Debugging-Ausgabe
+        console.log('Available Employees:', availableEmployees);
 
-        res.json(availableEmployees);
+        // Abrufen der belegten Mitarbeiter
+        const occupiedEmployees = await Termine.findAll({
+            where: {
+                Datum: dateOnly,
+                TerminzeitID
+            },
+            attributes: ['MitarbeiterID']
+        });
+
+        // Debugging-Ausgabe
+        console.log('Occupied Employees:', occupiedEmployees);
+
+        // Extrahieren der MitarbeiterIDs der belegten Mitarbeiter
+        const occupiedEmployeeIDs = occupiedEmployees.map(termin => termin.MitarbeiterID);
+
+        // Debugging-Ausgabe
+        console.log('Occupied Employee IDs:', occupiedEmployeeIDs);
+
+        // Herausfiltern der belegten Mitarbeiter
+        const freeEmployees = availableEmployees.filter(employee => !occupiedEmployeeIDs.includes(employee.MitarbeiterID));
+
+        // Debugging-Ausgabe
+        console.log('Free Employees:', freeEmployees);
+
+        res.json(freeEmployees);
     } catch (err) {
         res.status(500).send(err.message);
     }
 };
+
+
+
 
 // Überprüfung der Terminverfügbarkeit
 exports.checkTerminAvailability = async (req, res) => {

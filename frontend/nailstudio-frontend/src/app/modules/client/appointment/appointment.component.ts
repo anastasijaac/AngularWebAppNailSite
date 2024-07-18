@@ -1,16 +1,16 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { FullCalendarModule } from '@fullcalendar/angular';
+import {Component, OnInit, AfterViewInit} from '@angular/core';
+import {FullCalendarModule} from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
-import { DienstleistungenService } from '../../../services/dienstleistungen.service';
-import { TermineService } from '../../../services/termine.service';
-import { AuthService } from '../../../services/auth.service';
-import { NavbarKundeComponent } from '../../../navigation/navbar-kunde/navbar-kunde.component';
-import { Router } from '@angular/router';
-import { BestaetigungsDialogComponent } from '../bestaetigungs-dialog/bestaetigungs-dialog.component';
+import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
+import {MatDialog} from '@angular/material/dialog';
+import {DienstleistungenService} from '../../../services/dienstleistungen.service';
+import {TermineService} from '../../../services/termine.service';
+import {AuthService} from '../../../services/auth.service';
+import {NavbarKundeComponent} from '../../../navigation/navbar-kunde/navbar-kunde.component';
+import {Router} from '@angular/router';
+import {BestaetigungsDialogComponent} from '../bestaetigungs-dialog/bestaetigungs-dialog.component';
 
 @Component({
   selector: 'app-appointment',
@@ -27,12 +27,13 @@ export class AppointmentComponent implements OnInit, AfterViewInit {
   selectedTime?: string;
   selectedEmployee?: any;
   availableTimes: { time: string, id: number }[] = [
-    { time: '10:00', id: 1 },
-    { time: '13:00', id: 2 },
-    { time: '16:00', id: 3 }
+    {time: '10:00', id: 1},
+    {time: '13:00', id: 2},
+    {time: '16:00', id: 3}
   ];
   availableEmployees: any[] = [];
   filteredEmployees: any[] = [];
+  errorMessage: string = '';
 
   constructor(
     private dienstleistungenService: DienstleistungenService,
@@ -40,7 +41,8 @@ export class AppointmentComponent implements OnInit, AfterViewInit {
     private authService: AuthService,
     private router: Router,
     private dialog: MatDialog
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.loadDienstleistungen();
@@ -109,9 +111,9 @@ export class AppointmentComponent implements OnInit, AfterViewInit {
       this.availableTimes = this.availableTimes.filter(timeObj => timeObj.time > currentTime);
     } else {
       this.availableTimes = [
-        { time: '10:00', id: 1 },
-        { time: '13:00', id: 2 },
-        { time: '16:00', id: 3 }
+        {time: '10:00', id: 1},
+        {time: '13:00', id: 2},
+        {time: '16:00', id: 3}
       ];
     }
   }
@@ -127,30 +129,31 @@ export class AppointmentComponent implements OnInit, AfterViewInit {
     console.log(`Selected employee: ${this.selectedEmployee.Name}`);
   }
 
+
   loadAvailableEmployees() {
     if (this.selectedDate && this.selectedTime) {
-      this.appointmentService.getAvailableAppointments(this.selectedDate).subscribe({
-        next: (employees: any[]) => {
-          console.log('Employees received:', employees);
-          this.availableEmployees = employees;
-          this.filterAvailableEmployees();
-        },
-        error: (error) => {
-          console.error('Fehler beim Laden der verfügbaren Mitarbeiter', error);
-        }
-      });
+      const selectedTerminzeit = this.availableTimes.find(time => time.time === this.selectedTime)?.id;
+      if (selectedTerminzeit !== undefined) {
+        this.appointmentService.getAvailableAppointments(this.selectedDate, selectedTerminzeit).subscribe({
+          next: (employees: any[]) => {
+            console.log('Employees received:', employees);
+            this.availableEmployees = employees;
+            this.filterAvailableEmployees();
+          },
+          error: (error) => {
+            console.error('Fehler beim Laden der verfügbaren Mitarbeiter', error);
+          }
+        });
+      }
     }
   }
 
   filterAvailableEmployees() {
-    if (this.selectedTime) {
-      const selectedTimeISO = `1970-01-01T${this.selectedTime}:00.000Z`; // Match the ISO format of employee time
-      this.filteredEmployees = this.availableEmployees.filter(employee => employee.Terminzeit === selectedTimeISO);
-      console.log('Filtered employees:', this.filteredEmployees);
-    } else {
-      this.filteredEmployees = [];
-    }
+    this.filteredEmployees = this.availableEmployees.map(employee => employee.Mitarbeiter);
+    console.log('Filtered employees:', this.filteredEmployees);
   }
+
+
 
   highlightSelectedDate(dateStr: string) {
     const calendarApi = this.calendarOptions?.calendar?.getApi();
@@ -184,6 +187,9 @@ export class AppointmentComponent implements OnInit, AfterViewInit {
           },
           error: (error) => {
             console.error('Fehler beim Buchen des Termins', error);
+            if (error.status === 409) {
+              this.errorMessage = 'Dieser Termin ist bereits gebucht. Bitte wählen Sie einen anderen Termin.';
+            }
           }
         });
       } else {
@@ -200,11 +206,13 @@ export class AppointmentComponent implements OnInit, AfterViewInit {
     });
   }
 
+
   onServiceChange() {
     this.selectedDate = undefined;
     this.selectedTime = undefined;
     this.selectedEmployee = undefined;
     this.availableEmployees = [];
     this.filteredEmployees = [];
+    this.errorMessage = '';
   }
 }

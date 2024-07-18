@@ -13,7 +13,7 @@ const Termine = sequelize.define('Termine', {
         primaryKey: true
     },
     Datum: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY, // Nur Datum ohne Zeit
         allowNull: false
     },
     TerminzeitID: {
