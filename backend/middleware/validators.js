@@ -55,19 +55,6 @@ exports.validateFeedback = [
     }
 ];
 
-// Validierung für Fotografien
-exports.validateFotografien = [
-    body('DienstleistungsID').isInt().withMessage('DienstleistungsID muss eine Ganzzahl sein'),
-    body('Bild').notEmpty().withMessage('Bild ist erforderlich'),
-    (req, res, next) => {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(400).json({errors: errors.array()});
-        }
-        next();
-    }
-];
-
 
 // Validierung für Termine
 exports.validateTermine = [
@@ -83,6 +70,4 @@ exports.validateTermine = [
         }
         next();
     }
-
-
 ];

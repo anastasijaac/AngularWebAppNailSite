@@ -1,24 +1,25 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';  // Importiere RouterModule
-import { AuthService } from '../../services/auth.service';
-import { HttpErrorResponse } from '@angular/common/http';
-import { AuthResponse } from '../../models/auth-response';
+import {Component} from '@angular/core';
+import {Router} from '@angular/router';
+import {FormsModule} from '@angular/forms';
+import {CommonModule} from '@angular/common';
+import {RouterModule} from '@angular/router';
+import {AuthService} from '../../services/auth.service';
+import {HttpErrorResponse} from '@angular/common/http';
+import {AuthResponse} from '../../models/auth-response';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
   standalone: true,
-  imports: [FormsModule, CommonModule, RouterModule]  // Stelle sicher, dass RouterModule importiert wird
+  imports: [FormsModule, CommonModule, RouterModule]
 })
 export class LoginComponent {
   email: string = '';
   password: string = '';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) {
+  }
 
   onLogin(): void {
     this.authService.login(this.email, this.password).subscribe({
@@ -37,8 +38,6 @@ export class LoginComponent {
       }
     });
   }
-
-
 
   navigateToHome(): void {
     this.router.navigate(['/']);

@@ -3,10 +3,10 @@
   justify-content: space-between;
   align-items: center;
   padding: 0 20px;
-  background-color: #F5D7EE; /* Soft pink background */
-  color: #000000; /* For contrasting text color */
+  background-color: #F5D7EE;
+  color: #000000;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  font-family: 'Playfair Display', serif; /* Elegant font for branding */
+  font-family: 'Playfair Display', serif;
 }
 
 .navbar-brand {
@@ -33,15 +33,15 @@
   margin-left: 20px;
   font-weight: 500;
   color: #333;
-  text-transform: none; /* Keep text in its original form */
+  text-transform: none;
   transition: color 0.3s, background-color 0.3s;
-  font-family: 'Roboto', sans-serif; /* Ensure consistency with other text */
+  font-family: 'Roboto', sans-serif;
 }
 
 .navbar-nav a:hover,
 .logout-button:hover {
   color: #000;
-  background-color: rgba(234, 88, 157, 0.2); /* Light pink hover effect */
+  background-color: rgba(234, 88, 157, 0.2);
   border-radius: 5px;
   padding: 5px 10px;
 }

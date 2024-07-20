@@ -2,24 +2,24 @@
 
 .container {
   display: flex;
-  justify-content: center; /* Platzierung der Elemente nebeneinander */
-  align-items: center; /* Elemente vertikal zentrieren */
+  justify-content: center;
+  align-items: center;
   padding: 80px;
-  font-family: 'Playfair Display', serif; /* Setzen Sie die Schriftart global */
+  font-family: 'Playfair Display', serif;
 }
 
 .text {
-  flex: 2; /* Erhöht die Flex-Eigenschaft für den Textbereich */
-  max-width: 1000px; /* Erhöht die maximale Breite für den Textbereich */
-  text-align: left; /* Text linksbündig */
-  margin-top: 150px; /* Abstand zum oberen Rand */
+  flex: 2;
+  max-width: 1000px;
+  text-align: left;
+  margin-top: 150px;
 }
 
 .slogan h1 {
   color: #d29db0;
   font-size: 2.5rem;
   margin-bottom: 20px;
-  font-family: 'Playfair Display', serif; /* Setzen Sie die Schriftart global */
+  font-family: 'Playfair Display', serif;
 }
 
 .slogan p {
@@ -48,16 +48,17 @@
 
 .carousel {
   flex: 1;
-  max-width: 500px; /* Breite des Karussells */
+  max-width: 500px;
   width: 100%;
-  height: 300px; /* Feste Höhe für das Karussell */
-  margin-top: 10px; /* Positioniert das Karussell näher an den Text */
-  margin-left: 20px; /* Abstand zum Text */
-  position: relative; /* Positionierung des Karussells */
+  height: 300px;
+  margin-top: 10px;
+  margin-left: 20px;
+  position: relative;
 }
+
 .carousel-container {
   width: 100%;
-  height: 100%; /* Stellt sicher, dass das Karussell die feste Höhe ausfüllt */
+  height: 100%;
   overflow: hidden;
   border-radius: 10px;
   position: relative;

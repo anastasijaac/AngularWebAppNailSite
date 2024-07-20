@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { NavbarMitarbeiterComponent } from "../../../navigation/navbar-mitarbeiter/navbar-mitarbeiter.component";
-import { HttpClient } from '@angular/common/http';
-import { AuthService } from '../../../services/auth.service';
-import { TermineService } from '../../../services/termine.service';
+import {Component, OnInit} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {NavbarMitarbeiterComponent} from "../../../navigation/navbar-mitarbeiter/navbar-mitarbeiter.component";
+import {HttpClient} from '@angular/common/http';
+import {AuthService} from '../../../services/auth.service';
+import {TermineService} from '../../../services/termine.service';
 
 @Component({
   selector: 'app-employee-view',
@@ -40,9 +40,9 @@ export class EmployeeViewComponent implements OnInit {
           console.log('Empfangene Daten:', data);
           this.termine = data.map(termin => ({
             ...termin,
-            Dienstleistungen: termin.Dienstleistungen || { Bezeichnung: 'Unbekannt' },
-            Mitarbeiter: termin.Mitarbeiter || { Name: 'Unbekannt' },
-            Terminzeiten: termin.Terminzeiten || { Uhrzeit: 'Unbekannt' }
+            Dienstleistungen: termin.Dienstleistungen || {Bezeichnung: 'Unbekannt'},
+            Mitarbeiter: termin.Mitarbeiter || {Name: 'Unbekannt'},
+            Terminzeiten: termin.Terminzeiten || {Uhrzeit: 'Unbekannt'}
           }));
         },
         error: (error) => {

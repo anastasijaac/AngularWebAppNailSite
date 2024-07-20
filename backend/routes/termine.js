@@ -1,4 +1,3 @@
-// routes/termine.js
 const express = require('express');
 const router = express.Router();
 const termineController = require('../controllers/termine.controller');

@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { NavbarKundeComponent } from '../../../navigation/navbar-kunde/navbar-kunde.component';
-import { HttpClient } from '@angular/common/http';
-import { AuthService } from '../../../services/auth.service';
+import {Component, OnInit} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {NavbarKundeComponent} from '../../../navigation/navbar-kunde/navbar-kunde.component';
+import {HttpClient} from '@angular/common/http';
+import {AuthService} from '../../../services/auth.service';
 
 @Component({
   selector: 'app-appointment-status',
@@ -14,9 +14,10 @@ import { AuthService } from '../../../services/auth.service';
 export class AppointmentStatusComponent implements OnInit {
   termine: any[] = [];
   filteredTermine: any[] = [];
-  filter: string = 'all';
+  filter: string = 'upcoming';
 
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor(private http: HttpClient, private authService: AuthService) {
+  }
 
   ngOnInit(): void {
     this.loadTermine();
@@ -31,9 +32,9 @@ export class AppointmentStatusComponent implements OnInit {
           console.log('Daten vom Backend:', data);
           this.termine = data.map(termin => ({
             ...termin,
-            Dienstleistungen: termin.Dienstleistungen || { Bezeichnung: 'Unbekannt' },
-            Mitarbeiter: termin.Mitarbeiter || { Name: 'Unbekannt' },
-            Terminzeiten: termin.Terminzeiten || { Uhrzeit: 'Unbekannt' }
+            Dienstleistungen: termin.Dienstleistungen || {Bezeichnung: 'Unbekannt'},
+            Mitarbeiter: termin.Mitarbeiter || {Name: 'Unbekannt'},
+            Terminzeiten: termin.Terminzeiten || {Uhrzeit: 'Unbekannt'}
           }));
           this.filterAppointments(this.filter); // Apply initial filter
         },

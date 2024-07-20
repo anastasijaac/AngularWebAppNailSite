@@ -1,5 +1,5 @@
 // models/Termine.js
-const { Sequelize, DataTypes } = require('sequelize');
+const {Sequelize, DataTypes} = require('sequelize');
 const sequelize = require('../config/database');
 const Kunde = require('./Kunde');
 const Mitarbeiter = require('./Mitarbeiter');
@@ -50,9 +50,9 @@ const Termine = sequelize.define('Termine', {
 });
 
 // Assoziationen definieren
-Termine.belongsTo(Kunde, { foreignKey: 'KundenID' });
-Termine.belongsTo(Mitarbeiter, { foreignKey: 'MitarbeiterID' });
-Termine.belongsTo(Dienstleistungen, { foreignKey: 'DienstleistungsID' });
-Termine.belongsTo(Terminzeiten, { foreignKey: 'TerminzeitID' });
+Termine.belongsTo(Kunde, {foreignKey: 'KundenID'});
+Termine.belongsTo(Mitarbeiter, {foreignKey: 'MitarbeiterID'});
+Termine.belongsTo(Dienstleistungen, {foreignKey: 'DienstleistungsID'});
+Termine.belongsTo(Terminzeiten, {foreignKey: 'TerminzeitID'});
 
 module.exports = Termine;

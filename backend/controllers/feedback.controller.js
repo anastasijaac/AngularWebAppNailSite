@@ -1,7 +1,6 @@
 const {body, validationResult} = require('express-validator');
 const Feedback = require('../models/Feedback');
 
-// GET alle Feedbacks
 exports.getAllFeedbacks = async (req, res) => {
     try {
         const feedbacks = await Feedback.findAll();
@@ -11,7 +10,6 @@ exports.getAllFeedbacks = async (req, res) => {
     }
 };
 
-// POST neues Feedback erstellen
 exports.createFeedback = [
     body('Text').isString().notEmpty(),
     body('Bewertung').isInt({min: 1, max: 5}),

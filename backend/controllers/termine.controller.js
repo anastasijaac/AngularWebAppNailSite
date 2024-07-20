@@ -7,7 +7,6 @@ const VerfuegbareTermine = require('../models/VerfuegbareTermine');
 const Terminzeiten = require('../models/Terminzeiten');
 const {Op} = require('sequelize');
 
-// GET alle Termine
 exports.getAllTermine = async (req, res) => {
     try {
         const termine = await Termine.findAll();
@@ -176,7 +175,7 @@ exports.createTermin = [
 
 // Verfügbare Mitarbeiter abrufen
 exports.getAvailableEmployees = async (req, res) => {
-    const { Datum, TerminzeitID } = req.query;
+    const {Datum, TerminzeitID} = req.query;
 
     try {
         // Konvertiere das Datum zu einem ISO-String ohne Zeit
@@ -227,9 +226,6 @@ exports.getAvailableEmployees = async (req, res) => {
         res.status(500).send(err.message);
     }
 };
-
-
-
 
 // Überprüfung der Terminverfügbarkeit
 exports.checkTerminAvailability = async (req, res) => {

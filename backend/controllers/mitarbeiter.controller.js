@@ -43,7 +43,6 @@ module.exports.employeeLogin = [
     }
 ];
 
-// GET alle Mitarbeiter
 exports.getAllMitarbeiter = async (req, res) => {
     try {
         const mitarbeiter = await Mitarbeiter.findAll();
@@ -53,7 +52,6 @@ exports.getAllMitarbeiter = async (req, res) => {
     }
 };
 
-// POST neuen Mitarbeiter erstellen
 exports.createMitarbeiter = async (req, res) => {
     try {
         const {Name, Rolle, Email, Passwort} = req.body;

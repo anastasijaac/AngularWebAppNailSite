@@ -33,11 +33,11 @@ export class PhotoGalleryComponent implements OnInit, OnDestroy {
       this.nextSlide();
     }, 2500); // Wechsel der Folie alle 3 Sekunden
   }
-
+/*
   prevSlide(): void {
     this.currentSlide = (this.currentSlide > 0) ? this.currentSlide - 1 : this.slides.length - 1;
   }
-
+*/
   nextSlide(): void {
     this.currentSlide = (this.currentSlide < this.slides.length - 1) ? this.currentSlide + 1 : 0;
   }

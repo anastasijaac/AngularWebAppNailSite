@@ -6,8 +6,8 @@
   border-radius: 10px;
   max-width: 600px;
   margin: 20px auto;
-  font-family: 'Playfair Display', serif; /* Setzen Sie die Schriftart global */
-  animation: fadeIn 1s ease-in-out; /* Fade-In-Effekt anwenden */
+  font-family: 'Playfair Display', serif;
+  animation: fadeIn 1s ease-in-out;
 }
 
 h2 {

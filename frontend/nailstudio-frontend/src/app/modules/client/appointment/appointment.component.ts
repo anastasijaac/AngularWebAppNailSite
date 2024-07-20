@@ -129,7 +129,6 @@ export class AppointmentComponent implements OnInit, AfterViewInit {
     console.log(`Selected employee: ${this.selectedEmployee.Name}`);
   }
 
-
   loadAvailableEmployees() {
     if (this.selectedDate && this.selectedTime) {
       const selectedTerminzeit = this.availableTimes.find(time => time.time === this.selectedTime)?.id;
@@ -152,8 +151,6 @@ export class AppointmentComponent implements OnInit, AfterViewInit {
     this.filteredEmployees = this.availableEmployees.map(employee => employee.Mitarbeiter);
     console.log('Filtered employees:', this.filteredEmployees);
   }
-
-
 
   highlightSelectedDate(dateStr: string) {
     const calendarApi = this.calendarOptions?.calendar?.getApi();
@@ -205,7 +202,6 @@ export class AppointmentComponent implements OnInit, AfterViewInit {
       width: '300px',
     });
   }
-
 
   onServiceChange() {
     this.selectedDate = undefined;

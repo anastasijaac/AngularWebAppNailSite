@@ -9,5 +9,4 @@ export class MitarbeiterService {
 
   constructor(private http: HttpClient) {
   }
-
 }

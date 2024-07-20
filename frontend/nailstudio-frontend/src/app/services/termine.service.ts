@@ -23,4 +23,12 @@ export class TermineService {
   getAppointmentsByMitarbeiterID(mitarbeiterID: number, datum: string): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/mitarbeiter/${mitarbeiterID}?datum=${datum}`);
   }
+
+  // Methode zur Überprüfung der Terminverfügbarkeit hinzufügen
+  checkAppointmentAvailability(date: string, timeId: number, customerId: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/check-availability`, {
+      params: { Datum: date, TerminzeitID: timeId.toString(), KundenID: customerId.toString() }
+    });
+  }
+
 }

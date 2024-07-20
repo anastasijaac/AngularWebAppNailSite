@@ -17,19 +17,28 @@
   <div *ngIf="selectedDate">
     <h2>Wähle eine Uhrzeit</h2>
     <div class="time-slots">
-      <button *ngFor="let timeObj of availableTimes" (click)="selectTime(timeObj.time)" [class.selected]="timeObj.time === selectedTime">{{ timeObj.time }}</button>
+      <button *ngFor="let timeObj of availableTimes" (click)="selectTime(timeObj.time)"
+              [class.selected]="timeObj.time === selectedTime">{{ timeObj.time }}</button>
     </div>
   </div>
 
   <div *ngIf="selectedTime && filteredEmployees.length > 0">
     <h2>Wähle einen Mitarbeiter</h2>
     <div class="employee-list">
-      <div *ngFor="let employee of filteredEmployees" (click)="selectEmployee(employee)" [class.selected]="employee === selectedEmployee">
+      <div *ngFor="let employee of filteredEmployees" (click)="selectEmployee(employee)"
+           [class.selected]="employee === selectedEmployee">
         {{ employee.Name }}
       </div>
     </div>
   </div>
 
-
   <button *ngIf="selectedEmployee" (click)="bookAppointment()">Termin Buchen</button>
 </div>
+
+<div *ngIf="selectedTime && !filteredEmployees.length">
+  <div class="error-message">
+    Keine Mitarbeiter verfügbar. Bitte wähle einen anderen Termin.
+  </div>
+</div>
+
+

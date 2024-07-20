@@ -1,5 +1,4 @@
-// models/Dienstleistungen.js
-const { Sequelize, DataTypes } = require('sequelize');
+const {Sequelize, DataTypes} = require('sequelize');
 const sequelize = require('../config/database');
 
 const Dienstleistungen = sequelize.define('Dienstleistungen', {

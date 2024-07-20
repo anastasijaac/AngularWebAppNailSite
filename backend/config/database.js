@@ -7,7 +7,7 @@ const sequelize = new Sequelize('naildata', 'nailmember', 'webangular123!', {
         options: {
             encrypt: true,
             enableArithAbort: true,
-            connectTimeout: 30000 // Timeout in Millisekunden
+            connectTimeout: 30000
         }
     },
     pool: {
@@ -16,7 +16,7 @@ const sequelize = new Sequelize('naildata', 'nailmember', 'webangular123!', {
         acquire: 30000,
         idle: 10000
     },
-    logging: console.log // Protokollierung aktivieren
+    logging: console.log
 });
 
 (async () => {

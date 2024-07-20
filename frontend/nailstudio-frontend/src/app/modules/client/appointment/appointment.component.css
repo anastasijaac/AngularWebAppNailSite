@@ -34,7 +34,7 @@ select, .time-slots button, .employee-list div {
   border: none;
   border-radius: 5px;
   background: linear-gradient(135deg, #ad1457, #e91e63);
-  color: white;
+  color: #171515;
   cursor: pointer;
   font-family: 'Arial', sans-serif;
   text-align: center;
@@ -56,8 +56,26 @@ button {
 }
 
 .error-message {
-  color: red;
+  color: #b71c1c;
+  background-color: #fbe9e7;
   text-align: center;
-  margin-top: 10px;
+  padding: 15px;
+  margin-top: 50px;
+  margin-left: auto;
+  margin-right: auto;
   font-family: 'Arial', sans-serif;
+  border-radius: 8px;
+  border: 1px solid #f44336;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.error-message:before {
+  content: "⚠️";
+  margin-right: 10px;
+  font-size: 20px;
 }

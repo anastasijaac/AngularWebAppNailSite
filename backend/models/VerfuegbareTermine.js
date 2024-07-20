@@ -1,4 +1,4 @@
-const { Sequelize, DataTypes } = require('sequelize');
+const {Sequelize, DataTypes} = require('sequelize');
 const sequelize = require('../config/database');
 const Terminzeiten = require('./Terminzeiten');
 const Mitarbeiter = require('./Mitarbeiter');
@@ -37,7 +37,7 @@ const VerfuegbareTermine = sequelize.define('VerfuegbareTermine', {
 });
 
 // Assoziationen definieren
-VerfuegbareTermine.belongsTo(Mitarbeiter, { foreignKey: 'MitarbeiterID' });
-VerfuegbareTermine.belongsTo(Terminzeiten, { foreignKey: 'TerminzeitID' });
+VerfuegbareTermine.belongsTo(Mitarbeiter, {foreignKey: 'MitarbeiterID'});
+VerfuegbareTermine.belongsTo(Terminzeiten, {foreignKey: 'TerminzeitID'});
 
 module.exports = VerfuegbareTermine;

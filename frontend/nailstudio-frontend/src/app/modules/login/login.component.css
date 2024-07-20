@@ -3,37 +3,41 @@ body, html {
   padding: 0;
   width: 100%;
   height: 100%;
-  font-family: 'Roboto', sans-serif; /* Setzen Sie die Schriftart global */
+  font-family: 'Roboto', sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f8f8f8; /* Leichte Hintergrundfarbe */
+  background-color: #f8f8f8;
 }
 
 .login-container {
   width: 100%;
   max-width: 400px;
   padding: 20px;
-  background-color: #fff; /* Hintergrundfarbe des Formulars */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Leichte Schatten für Tiefe */
-  border-radius: 10px; /* Runde Ecken */
-  animation: fadeIn 1s ease-in-out; /* Fade-in-Animation */
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  animation: fadeIn 1s ease-in-out;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 h2 {
   text-align: center;
-  color: #420039; /* Farbton passend zum Design */
+  color: #420039;
   font-family: 'Playfair Display', serif;
 }
 
 h3 {
   text-align: center;
-  color: #420039; /* Farbton passend zum Design */
+  color: #420039;
   font-family: 'Playfair Display', serif;
   display: flex;
   align-items: center;
@@ -42,7 +46,7 @@ h3 {
 
 h3 img {
   margin-left: 10px;
-  width: 24px; /* Größe des Icons */
+  width: 24px;
   height: auto;
 }
 
@@ -66,48 +70,48 @@ input {
 }
 
 input:focus {
-  border-color: #e91e63; /* Farbe beim Fokussieren */
+  border-color: #e91e63;
   outline: none;
 }
 
 button[type="submit"] {
   margin-top: 20px;
   padding: 10px 20px;
-  background-color: rgb(234, 88, 157); /* Hintergrundfarbe des Buttons */
-  color: #fff; /* Schriftfarbe des Buttons */
-  border: none;
-  border-radius: 30px;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.3s;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Leichte Schatten für Tiefe */
-  font-family: 'Roboto', sans-serif;
-}
-
-button[type="submit"]:hover {
-  background-color: #c2185b; /* Hover-Hintergrundfarbe */
-  transform: scale(1.05); /* Leichte Vergrößerung beim Hover */
-}
-
-.back-button {
-  margin-top: 20px;
-  padding: 10px 20px;
-  background-color: rgba(234, 88, 157, 0.68); /* Blau für den Zurück-Button */
+  background-color: rgb(234, 88, 157);
   color: #fff;
   border: none;
   border-radius: 30px;
   cursor: pointer;
   transition: background-color 0.3s, transform 0.3s;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Leichte Schatten für Tiefe */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   font-family: 'Roboto', sans-serif;
-  display: block; /* Block-Level-Element */
-  margin-left: auto; /* Automatischer linker Rand */
-  margin-right: auto; /* Automatischer rechter Rand */
-  text-align: center; /* Zentriert den Text im Button */
+}
+
+button[type="submit"]:hover {
+  background-color: #c2185b;
+  transform: scale(1.05);
+}
+
+.back-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: rgba(234, 88, 157, 0.68);
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: 'Roboto', sans-serif;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
 }
 
 .back-button:hover {
-  background-color: #ea3e90; /* Dunkleres Blau beim Hover */
-  transform: scale(1.05); /* Leichte Vergrößerung beim Hover */
+  background-color: #ea3e90;
+  transform: scale(1.05);
 }
 
 p {
